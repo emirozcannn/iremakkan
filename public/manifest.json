@@ -1,0 +1,16 @@
+{
+  "name": "İrem Akkan | Psikolojik Danışman",
+  "short_name": "İrem Akkan",
+  "description": "Güvenli ve empatik psikolojik danışmanlık. Bireysel, çift ve aile danışmanlığı.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fbf8f3",
+  "theme_color": "#c5a572",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

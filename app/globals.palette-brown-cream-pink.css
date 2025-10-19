@@ -1,0 +1,21 @@
+/* Kahverengi, Krem, Toz Pembe Paleti (19.10.2025)
+   Güven, doğallık, sıcaklık, ferah ve modern vurgu
+*/
+@theme {
+  --color-navy: #6e4c37;         /* Ana kahverengi - güven, sıcaklık */
+  --color-navy-light: #a07c5b;   /* Açık kahverengi - yumuşak geçiş */
+  --color-navy-dark: #4b2e1a;    /* Koyu kahverengi - vurgu */
+  --color-gold: #e7cfc7;         /* Krem - ana arka plan ve kartlar */
+  --color-gold-light: #f7edea;   /* Açık krem - ekstra ferahlık */
+  --color-gold-dark: #cbb7ae;    /* Kremin koyusu */
+  --color-teal: #e7bfcf;         /* Toz pembe - vurgu ve butonlar */
+  --color-teal-light: #f6e3ea;   /* Açık toz pembe - hover, detay */
+  --color-ivory: #fffaf7;        /* Fildişi - ana arka plan */
+  --color-pearl: #f9f5f3;        /* Soft krem - kartlar */
+  --color-stone: #f2e8e3;        /* Sıcak taş - sınırlar */
+  --color-charcoal: #a07c5b;     /* Açık kahverengi - ikincil */
+  --color-slate: #bfa89c;        /* Nötr tamamlayıcı */
+  --font-family-serif: "Playfair Display", Georgia, serif;
+  --font-family-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-display: "Playfair Display", serif;
+}

@@ -1,0 +1,13 @@
+@theme {
+  /* GÜNCEL - Deep Mocha, Soft Ivory, Blush, Sand Beige, Warm Taupe, Antique Rose, White */
+  --color-mocha: #6B4E34;
+  --color-ivory: #FAF6F2;
+  --color-blush: #E9C5C2;
+  --color-beige: #E8DDD4;
+  --color-taupe: #5E544B;
+  --color-rose: #D8A7A0;
+  --color-white: #FFFFFF;
+  --font-family-serif: "Playfair Display", Georgia, serif;
+  --font-family-sans: "Inter", "Lora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-display: "Playfair Display", serif;
+}

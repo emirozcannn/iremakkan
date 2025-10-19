@@ -1,0 +1,371 @@
+﻿@import "tailwindcss";
+
+@theme {
+  /* Modern Champagne Psychology Palette - Güven + Premium + Doğallık */
+  --color-navy: #2a3140;
+  --color-navy-light: #3d4352;
+  --color-navy-dark: #181c26;
+  --color-gold: #e7cfa6;
+  --color-gold-light: #f3e5c9;
+  --color-gold-dark: #cbb07e;
+  --color-teal: #a7b9ad;
+  --color-teal-light: #c7d3cb;
+  --color-ivory: #FFFEFB;
+  --color-pearl: #f5f3ef;
+  --color-stone: #ece7df;
+  --color-charcoal: #3d4352;
+  --color-slate: #b0b6c2;
+  --font-family-serif: "Playfair Display", Georgia, serif;
+  --font-family-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-display: "Playfair Display", serif;
+}
+
+@layer components {
+  .bg-premium {
+    background: linear-gradient(135deg, #fffcfb 0%, #faf7f5 40%, #f0ebe8 80%);
+  }
+  .bg-premium-dark {
+    background: linear-gradient(135deg, #4a4456 0%, #6b5f73 60%, #9d8b93 100%);
+  }
+  .bg-premium-gold {
+    background: linear-gradient(135deg, #b88888 0%, #d4a5a5 50%, #e8c4c4 100%);
+  }
+  .bg-premium-card {
+    background: linear-gradient(145deg, #ffffff 0%, #fffcfb 70%, #faf7f5 100%);
+  }
+  .bg-gradient-gold {
+    background: linear-gradient(135deg, #b88888 0%, #d4a5a5 50%, #e8c4c4 100%);
+  }
+  .text-gradient-gold {
+    background: linear-gradient(90deg, #d4a5a5 0%, #e8c4c4 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  /* Navbar Styles */
+  .navbar-glass {
+    background: rgba(255, 254, 251, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(231, 207, 166, 0.2);
+    box-shadow: 0 4px 20px rgba(42, 49, 64, 0.08);
+  }
+  
+  .navbar-scrolled {
+    background: rgba(255, 254, 251, 0.98);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border-bottom: 1px solid rgba(231, 207, 166, 0.3);
+    box-shadow: 0 6px 25px rgba(42, 49, 64, 0.12);
+  }
+  
+  .nav-link {
+    @apply text-navy font-medium transition-all duration-300 hover:text-gold relative;
+  }
+  
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #e7cfa6, #a7b9ad);
+    transition: width 0.3s ease;
+  }
+  
+  .nav-link:hover::after {
+    width: 100%;
+  }
+  
+  .nav-link-active {
+    @apply text-gold font-semibold;
+  }
+  
+  .nav-link-active::after {
+    width: 100%;
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    border-radius: 1rem;
+  }
+  
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  /* Prose styles for blog content */
+  .prose {
+    color: #4a4456;
+  }
+  .prose h2 {
+    font-family: "Playfair Display", serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #4a4456;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+  .prose h3 {
+    font-family: "Playfair Display", serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #4a4456;
+    margin-top: 2.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .prose h4 {
+    font-family: "Playfair Display", serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #4a4456;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+  .prose p {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: rgba(74, 68, 86, 0.8);
+    margin-bottom: 1.5rem;
+  }
+  .prose strong {
+    font-weight: 700;
+    color: #4a4456;
+  }
+  .prose em {
+    font-style: italic;
+    color: rgba(74, 68, 86, 0.9);
+  }
+  .prose blockquote {
+    position: relative;
+    margin: 2rem 0;
+    padding-left: 1.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-left: 4px solid #d4a5a5;
+    background: rgba(212, 165, 165, 0.05);
+    border-radius: 0 0.75rem 0.75rem 0;
+  }
+  .prose blockquote p {
+    font-size: 1.25rem;
+    font-style: italic;
+    color: rgba(74, 68, 86, 0.9);
+  }
+  .prose ul {
+    margin: 1.5rem 0;
+    padding-left: 1.5rem;
+    list-style-type: disc;
+  }
+  .prose ol {
+    margin: 1.5rem 0;
+    padding-left: 1.5rem;
+    list-style-type: decimal;
+  }
+  .prose li {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: rgba(74, 68, 86, 0.8);
+    margin-bottom: 0.75rem;
+    padding-left: 0.5rem;
+  }
+  .prose a {
+    color: #d4a5a5;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 2px;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  .prose a:hover {
+    color: #9d8b93;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  background: #fffcfb;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #d4a5a5, #b88888);
+  border-radius: 10px;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--color-ivory);
+    color: #4a4456;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Playfair Display", serif;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #4a4456;
+  }
+}
+
+@keyframes blob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+}
+
+.animate-blob { animation: blob 7s infinite; }
+.animation-delay-2000 { animation-delay: 2s; }
+.animation-delay-4000 { animation-delay: 4s; }
+
+::selection {
+  background: #e8c4c4;
+  color: #4a4456;
+}
+
+/* Web view: Hide print-only content - FORCE HIDE */
+.print-content {
+  display: none !important;
+  visibility: hidden !important;
+  position: absolute !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Print Styles for Blog Posts */
+@media print {
+  /* Hide everything by default */
+  body * {
+    visibility: hidden;
+  }
+  
+  /* Show only print content */
+  .print-content {
+    display: block !important;
+    visibility: visible;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 20px;
+    margin: 0;
+  }
+  
+  .print-content * {
+    visibility: visible;
+  }
+  
+  /* Completely hide non-print content */
+  .no-print {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  
+  /* Print-specific typography */
+  .print-content h1 {
+    font-size: 24pt;
+    margin-bottom: 12pt;
+    color: #000;
+  }
+  
+  .print-content h2 {
+    font-size: 20pt;
+    margin-top: 16pt;
+    margin-bottom: 8pt;
+    color: #000;
+  }
+  
+  .print-content h3 {
+    font-size: 16pt;
+    margin-top: 12pt;
+    margin-bottom: 6pt;
+    color: #000;
+  }
+  
+  .print-content h4 {
+    font-size: 14pt;
+    margin-top: 10pt;
+    margin-bottom: 5pt;
+    color: #000;
+  }
+  
+  .print-content p {
+    font-size: 12pt;
+    line-height: 1.6;
+    margin-bottom: 8pt;
+    color: #000;
+  }
+  
+  .print-content ul,
+  .print-content ol {
+    margin: 8pt 0;
+    padding-left: 20pt;
+  }
+  
+  .print-content li {
+    font-size: 12pt;
+    line-height: 1.6;
+    margin-bottom: 4pt;
+    color: #000;
+  }
+  
+  .print-content img {
+    max-width: 100%;
+    page-break-inside: avoid;
+  }
+  
+  .print-content blockquote {
+    border-left: 3pt solid #666;
+    padding-left: 12pt;
+    margin: 12pt 0;
+    font-style: italic;
+  }
+  
+  .print-content a {
+    color: #000;
+    text-decoration: none;
+  }
+  
+  .print-content a[href]:after {
+    content: " (" attr(href) ")";
+    font-size: 10pt;
+    color: #666;
+  }
+  
+  /* Remove backgrounds and shadows for print */
+  .print-content * {
+    background: white !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  /* Ensure clean page breaks */
+  html, body {
+    background: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+  }
+}
