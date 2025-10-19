@@ -204,7 +204,7 @@ export default async function Home() {
                         <svg className="w-24 h-24 text-teal/30 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
-                        <p className="text-navy/60 mb-2 font-medium">Sanity Studio'da fotoğraf ekleyin</p>
+                        <p className="text-navy/60 mb-2 font-medium"></p>
                         <p className="text-sm text-teal">Site Ayarları → Danışman Bilgileri</p>
                       </div>
                     </div>
@@ -316,7 +316,7 @@ export default async function Home() {
       </section>
 
       {/* Rest of the page continues with existing sections... */}
-      {/* I'll keep the stats, services, values, and CTA sections as they were */}
+      {/* I&apos;ll keep the stats, services, values, and CTA sections as they were */}
       
     </main>
   );
