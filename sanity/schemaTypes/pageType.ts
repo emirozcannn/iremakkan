@@ -1,5 +1,5 @@
-import {DocumentIcon} from '@sanity/icons'
-import {defineField, defineType} from 'sanity'
+import { DocumentIcon } from '@sanity/icons'
+import { defineField, defineType } from 'sanity'
 
 export const pageType = defineType({
   name: 'page',
@@ -7,105 +7,171 @@ export const pageType = defineType({
   type: 'document',
   icon: DocumentIcon,
   fields: [
-    defineField({
-      name: 'title',
-      title: 'Sayfa Başlığı',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'slug',
-      title: 'URL Slug',
-      type: 'slug',
-      options: {
-        source: 'title',
-        maxLength: 96,
-      },
-      validation: (Rule) => Rule.required(),
-    }),
+    // 🧱 İçerik (Body)
     defineField({
       name: 'body',
       title: 'İçerik',
       type: 'blockContent',
-      validation: (Rule) => Rule.required(),
+      description: 'Sayfa içeriği (metin, görsel veya video)',
     }),
-    // Profil Görselleri
+
+    // 🌟 Hero Section
+    defineField({
+      name: 'heroTitle',
+      title: 'Hero Başlığı',
+      type: 'string',
+      description: 'Örn: Güvenli ve Empatik',
+    }),
+    defineField({
+      name: 'heroSubtitle',
+      title: 'Hero Alt Başlığı',
+      type: 'string',
+      description: 'Örn: Danışmanlık',
+    }),
+    defineField({
+      name: 'heroDescription',
+      title: 'Hero Açıklaması',
+      type: 'text',
+      rows: 3,
+      description:
+        'Kısa tanıtım paragrafı, örn: Her bireyin kendine özgü bir yolculuğu vardır...',
+    }),
+
+    // 💬 Buton Etiketleri
+    defineField({
+      name: 'labels',
+      title: 'Bölüm Buton Etiketleri',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'introButton',
+          title: 'Beni Tanıyın Butonu',
+          type: 'string',
+          initialValue: 'BENİ TANIYIN',
+        }),
+        defineField({
+          name: 'profileButton',
+          title: 'Profil Butonu',
+          type: 'string',
+          initialValue: 'PROFİL',
+        }),
+        defineField({
+          name: 'environmentButton',
+          title: 'Danışmanlık Ortamı Butonu',
+          type: 'string',
+          initialValue: 'DANIŞMANLIK ORTAMI',
+        }),
+        defineField({
+          name: 'detailsButton',
+          title: 'Detaylı Bilgiler Butonu',
+          type: 'string',
+          initialValue: 'DETAYLI BİLGİLER',
+        }),
+        defineField({
+          name: 'certificatesButton',
+          title: 'Eğitim & Sertifikalar Butonu',
+          type: 'string',
+          initialValue: 'EĞİTİM & SERTİFİKALAR',
+        }),
+      ],
+    }),
+
+    // 🧩 Kartlar
+    defineField({
+      name: 'infoCards',
+      title: 'Bilgi Kartları (Eğitim, Deneyim, Yaklaşım)',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            { name: 'icon', type: 'string', title: 'İkon (emoji veya simge)' },
+            { name: 'title', type: 'string', title: 'Başlık' },
+            { name: 'desc', type: 'string', title: 'Açıklama' },
+          ],
+        },
+      ],
+      description: 'Hero altındaki 3 kart (ör: Eğitim, Deneyim, Yaklaşım)',
+    }),
+
+    // 📈 İstatistik Sayıları
+    defineField({
+      name: 'statsNumbers',
+      title: 'İstatistik Sayıları',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'experience',
+          title: 'Yıl Deneyim (ör. 3+)',
+          type: 'string',
+        }),
+        defineField({
+          name: 'sessions',
+          title: 'Başarılı Görüşme (ör. 100+)',
+          type: 'string',
+        }),
+        defineField({
+          name: 'satisfaction',
+          title: 'Memnuniyet (ör. 98%)',
+          type: 'string',
+        }),
+        defineField({
+          name: 'privacy',
+          title: 'Gizlilik (ör. 100%)',
+          type: 'string',
+        }),
+      ],
+    }),
+
+    // 🖼️ Görseller
     defineField({
       name: 'profileImage',
       title: 'Profil Fotoğrafı',
       type: 'image',
-      description: 'Ana profil fotoğrafı (kare format önerilir)',
-      options: {
-        hotspot: true,
-      },
-      fields: [
-        {
-          name: 'alt',
-          type: 'string',
-          title: 'Alternatif Metin',
-          description: 'Görsel açıklaması (SEO için önemli)',
-        },
-      ],
+      options: { hotspot: true },
+      fields: [{ name: 'alt', type: 'string', title: 'Alternatif Metin' }],
     }),
     defineField({
       name: 'officeImage',
-      title: 'Ofis/Çalışma Alanı Fotoğrafı',
+      title: 'Ofis Fotoğrafı',
       type: 'image',
-      description: 'Ofis veya danışmanlık ortamı görseli (opsiyonel)',
-      options: {
-        hotspot: true,
-      },
-      fields: [
-        {
-          name: 'alt',
-          type: 'string',
-          title: 'Alternatif Metin',
-        },
-      ],
+      options: { hotspot: true },
+      fields: [{ name: 'alt', type: 'string', title: 'Alternatif Metin' }],
     }),
+
+    // 📜 Sertifikalar
     defineField({
       name: 'certificateImages',
       title: 'Sertifika/Diploma Görselleri',
       type: 'array',
-      description: 'Eğitim ve sertifika görselleri (opsiyonel)',
       of: [
         {
           type: 'image',
-          options: {
-            hotspot: true,
-          },
+          options: { hotspot: true },
           fields: [
-            {
-              name: 'alt',
-              type: 'string',
-              title: 'Alternatif Metin',
-            },
-            {
-              name: 'caption',
-              type: 'string',
-              title: 'Açıklama',
-              description: 'Sertifika/diploma hakkında kısa açıklama',
-            },
+            { name: 'alt', type: 'string', title: 'Alternatif Metin' },
+            { name: 'caption', type: 'string', title: 'Açıklama' },
           ],
         },
       ],
+      description: 'Eğitim ve sertifika görselleri (opsiyonel)',
     }),
-    // SEO Alanları
+
+    // 🧠 SEO
     defineField({
       name: 'seoTitle',
       title: 'SEO Başlığı',
       type: 'string',
-      description: 'Arama motorları için optimize edilmiş başlık (50-60 karakter)',
       validation: (Rule) => Rule.max(60),
     }),
     defineField({
       name: 'seoDescription',
       title: 'SEO Açıklaması',
       type: 'text',
-      description: 'Arama motorları için meta açıklama (150-160 karakter)',
       validation: (Rule) => Rule.max(160),
     }),
   ],
+
   preview: {
     select: {
       title: 'title',

@@ -4,6 +4,7 @@ import { PortableText } from "@portabletext/react";
 import type { PortableTextBlock } from "@portabletext/react";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
+import CertificatesSection from "@/components/CertificatesSection";
 
 interface SanityImage {
   asset?: {
@@ -22,6 +23,27 @@ interface Page {
   certificateImages?: SanityImage[];
   seoTitle?: string;
   seoDescription?: string;
+  heroTitle?: string;
+  heroSubtitle?: string;
+  heroDescription?: string;
+  statsNumbers?: {
+    experience?: string;
+    sessions?: string;
+    satisfaction?: string;
+    privacy?: string;
+  };
+  labels?: {
+    introButton?: string;
+    profileButton?: string;
+    environmentButton?: string;
+    detailsButton?: string;
+    certificatesButton?: string;
+  };
+  infoCards?: {
+    icon?: string;
+    title?: string;
+    desc?: string;
+  }[];
 }
 
 async function getAboutPage(): Promise<Page | null> {
@@ -34,7 +56,13 @@ async function getAboutPage(): Promise<Page | null> {
         officeImage,
         certificateImages,
         seoTitle,
-        seoDescription
+        seoDescription,
+        statsNumbers,
+        heroTitle,
+        heroSubtitle,
+        heroDescription,
+        labels,
+        infoCards
       }`
     );
     return page;
@@ -47,22 +75,13 @@ async function getAboutPage(): Promise<Page | null> {
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getAboutPage();
 
-  if (!page) {
-    return {
-      title: "Hakkımda - İrem Akkan Psikolojik Danışmanlık",
-      description: "İrem Akkan - Psikolojik Danışman. Eğitim, deneyim, sertifikalar ve danışmanlık yaklaşımı hakkında detaylı bilgi.",
-    };
-  }
+  const title = page?.seoTitle || "Hakkımda - İrem Akkan Psikolojik Danışmanlık";
+  const description = page?.seoDescription || "Profesyonel psikolojik danışmanlık hizmeti. Eğitim, deneyim ve terapötik yaklaşım hakkında bilgi edinin.";
 
-  const title = page.seoTitle || `${page.title} - İrem Akkan Psikolojik Danışmanlık`;
-  const description = page.seoDescription || "Profesyonel psikolojik danışmanlık hizmeti. Eğitim, deneyim ve terapötik yaklaşım hakkında bilgi edinin.";
-
-  // Use profile image for OG if available
-  const ogImage = page.profileImage
+  const ogImage = page?.profileImage
     ? urlFor(page.profileImage).width(1200).height(630).url()
     : undefined;
 
-  // About page specific keywords
   const keywords = [
     "İrem Akkan",
     "psikolojik danışman",
@@ -103,7 +122,7 @@ export async function generateMetadata(): Promise<Metadata> {
               url: ogImage,
               width: 1200,
               height: 630,
-              alt: page.profileImage?.alt || "İrem Akkan - Psikolojik Danışman",
+              alt: page?.profileImage?.alt || "İrem Akkan - Psikolojik Danışman",
             },
           ]
         : [],
@@ -136,7 +155,6 @@ const portableTextComponents = {
       <h2 className="relative text-4xl md:text-5xl font-bold text-navy mt-16 mb-8 font-display">
         <span className="relative z-10">{children}</span>
         <div className="absolute -bottom-3 left-0 w-24 h-1.5 bg-gradient-to-r from-gold via-teal to-gold-light rounded-full"></div>
-        <div className="absolute -top-2 -left-2 w-6 h-6 bg-gradient-to-br from-gold/30 to-teal/30 rounded-lg rotate-45"></div>
       </h2>
     ),
     h3: ({ children }: { children?: React.ReactNode }) => (
@@ -160,16 +178,8 @@ const portableTextComponents = {
     bullet: ({ children }: { children?: React.ReactNode }) => (
       <li className="group flex items-start text-navy/80 text-lg leading-relaxed">
         <div className="w-8 h-8 bg-gradient-to-br from-gold/20 to-teal/20 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0 group-hover:from-gold/30 group-hover:to-teal/30 transition-all duration-300">
-          <svg
-            className="w-4 h-4 text-gold"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              fillRule="evenodd"
-              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-              clipRule="evenodd"
-            />
+          <svg className="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
           </svg>
         </div>
         <span className="flex-1">{children}</span>
@@ -188,13 +198,49 @@ const portableTextComponents = {
 export default async function AboutPage() {
   const page = await getAboutPage();
 
+  // Default values
+  const defaultLabels = {
+    introButton: "BENİ TANIYIN",
+    profileButton: "PROFİL",
+    environmentButton: "DANIŞMANLIK ORTAMI",
+    detailsButton: "DETAYLI BİLGİLER",
+    certificatesButton: "EĞİTİM & SERTİFİKALAR",
+  };
+
+  const defaultInfoCards = [
+    {
+      icon: "🎓",
+      title: "Eğitim & Sertifikalar",
+      desc: "Akademik alt yapı ve sürekli gelişim",
+    },
+    {
+      icon: "💼",
+      title: "Deneyim",
+      desc: "Yıllarca süren uzmanlık pratiği",
+    },
+    {
+      icon: "💡",
+      title: "Danışmanlık Yaklaşımım",
+      desc: "Kişiye özel terapötik felsefe",
+    },
+  ];
+
+  const defaultStats = {
+    experience: "3+",
+    sessions: "100+",
+    satisfaction: "98%",
+    privacy: "100%",
+  };
+
+  const labels = page?.labels || defaultLabels;
+  const infoCards = page?.infoCards && page.infoCards.length > 0 ? page.infoCards : defaultInfoCards;
+  const stats = page?.statsNumbers || defaultStats;
+
   // Eğer Sanity'den içerik gelmezse placeholder göster
-  if (!page) {
+  if (!page || !page.body) {
     return (
       <div className="min-h-screen relative overflow-hidden">
-        {/* Profil Odaklı Background System */}
         <div className="absolute inset-0 bg-gradient-to-br from-ivory via-pearl to-stone">
-          {/* Professional identity pattern */}
           <div className="absolute inset-0 opacity-20" style={{
             backgroundImage: `
               radial-gradient(circle at 25% 25%, rgba(197,165,114,0.4) 0%, transparent 50%),
@@ -203,26 +249,21 @@ export default async function AboutPage() {
             `,
           }}></div>
 
-          {/* Identity-focused floating elements */}
           <div className="absolute inset-0 pointer-events-none">
-            {/* Professional badge shapes */}
             <div className="absolute top-32 left-32 w-32 h-20 border-2 border-gold/25 rounded-xl rotate-12 animate-pulse" style={{animationDuration: '8s'}}>
               <div className="absolute top-2 left-2 w-4 h-4 bg-gold/30 rounded-full"></div>
               <div className="absolute bottom-2 right-2 w-3 h-3 bg-teal/30 rounded-full"></div>
             </div>
             
-            {/* Certificate inspired rectangles */}
             <div className="absolute bottom-40 right-40 w-28 h-36 bg-gradient-to-b from-teal/20 to-transparent rounded-lg transform -rotate-12">
               <div className="absolute top-3 left-3 right-3 h-1 bg-teal/40 rounded"></div>
               <div className="absolute top-6 left-3 right-3 h-0.5 bg-teal/30 rounded"></div>
             </div>
             
-            {/* Achievement symbols */}
             <div className="absolute top-1/2 left-20 w-16 h-16 border-2 border-gold/30 rounded-full flex items-center justify-center">
               <div className="w-8 h-8 bg-gold/25 rounded-full"></div>
             </div>
             
-            {/* Profile particles */}
             {Array.from({ length: 16 }).map((_, i) => (
               <div
                 key={i}
@@ -242,7 +283,6 @@ export default async function AboutPage() {
 
         <div className="relative py-32 overflow-hidden">
           <div className="relative z-10 mx-auto max-w-5xl px-6 lg:px-8 text-center">
-            {/* Professional identity badge */}
             <div className="relative inline-block mb-12">
               <div className="absolute -inset-4 bg-gradient-to-r from-gold/30 to-teal/30 rounded-full blur-xl"></div>
               <div className="relative inline-flex items-center gap-4 px-10 py-5 rounded-full bg-white/15 backdrop-blur-xl border border-gold/25 shadow-2xl">
@@ -250,7 +290,7 @@ export default async function AboutPage() {
                   <path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clipRule="evenodd" />
                 </svg>
                 <span className="text-navy font-bold uppercase tracking-[0.3em] text-sm">
-                  Profesyonel Profil
+                  {labels.introButton}
                 </span>
                 <svg className="w-6 h-6 text-teal animate-pulse" fill="currentColor" viewBox="0 0 24 24" style={{animationDelay: '1s'}}>
                   <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 9a.75.75 0 00-1.5 0v2.25H9a.75.75 0 000 1.5h2.25V15a.75.75 0 001.5 0v-2.25H15a.75.75 0 000-1.5h-2.25V9z" clipRule="evenodd" />
@@ -258,7 +298,7 @@ export default async function AboutPage() {
               </div>
             </div>
 
-            <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-navy font-display leading-[0.9] mb-10">
+            <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-navy font-display leading-[0.9] mb-12">
               Hakkımda
             </h1>
 
@@ -272,13 +312,8 @@ export default async function AboutPage() {
               </div>
             </div>
 
-            {/* Professional preview cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-16">
-              {[
-                { icon: "🎓", title: "Eğitim", desc: "Akademik geçmiş" },
-                { icon: "🏆", title: "Deneyim", desc: "Profesyonel yolculuk" },
-                { icon: "💡", title: "Yaklaşım", desc: "Danışmanlık felsefesi" }
-              ].map((item, index) => (
+              {infoCards.map((item, index) => (
                 <div 
                   key={index}
                   className="group relative p-6 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/25 shadow-xl hover:shadow-gold/10 transition-all duration-500 hover:scale-105"
@@ -301,9 +336,7 @@ export default async function AboutPage() {
   // Sayfa bulunduysa içeriği render et
   return (
     <div className="min-h-screen relative overflow-hidden">
-      {/* Ultra-Modern Background - Professional Identity Theme */}
       <div className="absolute inset-0 bg-gradient-to-br from-ivory via-pearl to-stone">
-        {/* Professional credentials pattern */}
         <div className="absolute inset-0 opacity-15" style={{
           backgroundImage: `
             radial-gradient(circle at 30% 20%, rgba(197,165,114,0.5) 0%, transparent 50%),
@@ -312,25 +345,20 @@ export default async function AboutPage() {
           `,
         }}></div>
 
-        {/* Achievement & credential floating elements */}
         <div className="absolute inset-0 pointer-events-none">
-          {/* Diploma/certificate inspired shapes */}
           <div className="absolute top-24 right-24 w-36 h-24 border-2 border-gold/30 rounded-lg transform rotate-6 animate-pulse" style={{animationDuration: '9s'}}>
             <div className="absolute top-2 left-2 right-2 h-1 bg-gold/40 rounded"></div>
             <div className="absolute top-5 left-2 right-8 h-0.5 bg-gold/30 rounded"></div>
             <div className="absolute bottom-3 right-3 w-6 h-6 border border-gold/40 rounded-full"></div>
           </div>
           
-          {/* Professional badge hexagons */}
           <div className="absolute bottom-32 left-24 w-28 h-32 bg-gradient-to-br from-teal/25 to-transparent" style={{
             clipPath: 'polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%)'
           }}></div>
           
-          {/* Experience timeline elements */}
           <div className="absolute top-1/2 left-16 w-3 h-40 bg-gradient-to-b from-gold/30 via-teal/25 to-gold/20 rounded-full"></div>
           <div className="absolute top-1/3 right-20 w-2 h-28 bg-gradient-to-b from-teal/35 to-transparent rounded-full"></div>
           
-          {/* Professional milestones */}
           {Array.from({ length: 12 }).map((_, i) => (
             <div
               key={i}
@@ -346,10 +374,9 @@ export default async function AboutPage() {
         </div>
       </div>
 
-      {/* Ultra-Modern Hero Section */}
+      {/* Hero Section */}
       <div className="relative py-32 overflow-hidden">
         <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-8 text-center">
-          {/* Professional identity badge */}
           <div className="relative inline-block mb-12">
             <div className="absolute -inset-4 bg-gradient-to-r from-gold/30 to-teal/30 rounded-full blur-xl"></div>
             <div className="relative inline-flex items-center gap-4 px-10 py-5 rounded-full bg-white/15 backdrop-blur-xl border border-gold/25 shadow-2xl">
@@ -357,7 +384,7 @@ export default async function AboutPage() {
                 <path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clipRule="evenodd" />
               </svg>
               <span className="text-navy font-bold uppercase tracking-[0.3em] text-sm">
-                Beni Tanıyın
+                {labels.introButton}
               </span>
               <svg className="w-6 h-6 text-teal animate-pulse" fill="currentColor" viewBox="0 0 24 24" style={{animationDelay: '1s'}}>
                 <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 9a.75.75 0 00-1.5 0v2.25H9a.75.75 0 000 1.5h2.25V15a.75.75 0 001.5 0v-2.25H15a.75.75 0 000-1.5h-2.25V9z" clipRule="evenodd" />
@@ -367,10 +394,9 @@ export default async function AboutPage() {
 
           <div className="space-y-10 mb-16">
             <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-navy font-display leading-[0.9]">
-              {page.title}
+              {page.heroTitle || "Hakkımda"}
             </h1>
 
-            {/* Professional separator */}
             <div className="flex items-center justify-center gap-8">
               <div className="w-32 h-[3px] bg-gradient-to-r from-transparent to-gold rounded-full"></div>
               <div className="flex gap-4">
@@ -380,39 +406,19 @@ export default async function AboutPage() {
               </div>
               <div className="w-32 h-[3px] bg-gradient-to-l from-transparent to-teal rounded-full"></div>
             </div>
-
-            <div className="max-w-4xl mx-auto">
-              
-            </div>
           </div>
 
-          {/* Professional pillars */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {[
-              { 
-                icon: "🎓", 
-                title: "Eğitim & Sertifikalar", 
-                desc: "Akademik alt yapı ve sürekli gelişim",
-                color: "from-gold/20 to-gold/10"
-              },
-              { 
-                icon: "💼", 
-                title: "Deneyim", 
-                desc: "Yıllarca süren uzmanlık pratiği",
-                color: "from-teal/20 to-teal/10"  
-              },
-              { 
-                icon: "💡", 
-                title: "Danışmanlık Yaklaşımım", 
-                desc: "Kişiye özel terapötik felsefe",
-                color: "from-gold/15 to-teal/15"
-              }
-            ].map((item, index) => (
+            {infoCards.map((item, index) => (
               <div 
                 key={index}
                 className="group relative p-8 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/25 shadow-xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105"
               >
-                <div className={`absolute -inset-1 bg-gradient-to-br ${item.color} rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-lg`}></div>
+                <div className={`absolute -inset-1 bg-gradient-to-br ${
+                  index === 0 ? 'from-gold/20 to-gold/10' :
+                  index === 1 ? 'from-teal/20 to-teal/10' :
+                  'from-gold/15 to-teal/15'
+                } rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-lg`}></div>
                 <div className="relative text-center">
                   <div className="text-4xl mb-4">{item.icon}</div>
                   <div className="text-xl font-bold text-navy mb-3 font-display">{item.title}</div>
@@ -424,20 +430,17 @@ export default async function AboutPage() {
         </div>
       </div>
 
-      {/* Ultra-Modern Profile Image Section */}
+      {/* Profile Image Section */}
       {page.profileImage && (
         <div className="relative mx-auto max-w-6xl px-6 lg:px-8 py-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Profile Image */}
             <div className="group relative order-2 lg:order-1">
               <div className="absolute -inset-6 bg-gradient-to-br from-gold/30 via-teal/20 to-gold/30 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-2xl"></div>
               
               <div className="relative">
-                {/* Decorative frame */}
                 <div className="absolute -inset-4 border-2 border-gold/30 rounded-3xl transform rotate-3 transition-transform duration-500 group-hover:rotate-6"></div>
                 <div className="absolute -inset-4 border-2 border-teal/20 rounded-3xl transform -rotate-3 transition-transform duration-500 group-hover:-rotate-6"></div>
                 
-                {/* Main image container */}
                 <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/5]">
                   <div className="absolute inset-0 bg-gradient-to-t from-navy/40 via-transparent to-transparent z-10"></div>
                   <Image
@@ -449,7 +452,6 @@ export default async function AboutPage() {
                     priority
                   />
                   
-                  {/* Floating badge */}
                   <div className="absolute bottom-6 left-6 right-6 z-20">
                     <div className="p-6 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/25 shadow-2xl">
                       <div className="flex items-center gap-4">
@@ -467,13 +469,11 @@ export default async function AboutPage() {
                   </div>
                 </div>
 
-                {/* Decorative elements */}
                 <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-gold/20 to-transparent rounded-full blur-xl"></div>
                 <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-gradient-to-tr from-teal/20 to-transparent rounded-full blur-xl"></div>
               </div>
             </div>
 
-            {/* Profile Info */}
             <div className="order-1 lg:order-2 space-y-8">
               <div className="relative inline-block">
                 <div className="absolute -inset-3 bg-gradient-to-r from-gold/20 to-teal/20 rounded-2xl blur-lg"></div>
@@ -482,38 +482,58 @@ export default async function AboutPage() {
                     <path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clipRule="evenodd" />
                   </svg>
                   <span className="text-navy font-bold uppercase tracking-wide text-sm">
-                   Profil
+                    {labels.profileButton}
                   </span>
                 </div>
               </div>
 
               <div>
                 <h2 className="text-4xl md:text-5xl font-bold text-navy mb-6 font-display leading-tight">
-                  Güvenli ve Empatik{" "}
-                  <span className="text-gradient-gold">Danışmanlık</span>
+                  {page.heroTitle || "Güvenli ve Empatik"}{" "}
+                  <span className="text-gradient-gold">
+                    {page.heroSubtitle || "Danışmanlık"}
+                  </span>
                 </h2>
+
                 <p className="text-xl text-navy/80 leading-relaxed font-light">
-                  Her bireyin kendine özgü bir yolculuğu vardır. Profesyonel yaklaşımım ve yıllarca süren deneyimimle, 
-                  sizin bu yolculuğunuzda güvenilir bir rehber olmak için buradayım.
+                  {page.heroDescription ||
+                    "Her bireyin kendine özgü bir yolculuğu vardır. Profesyonel yaklaşımım ve yıllarca süren deneyimimle, sizin bu yolculuğunuzda güvenilir bir rehber olmak için buradayım."}
                 </p>
               </div>
 
-              {/* Quick Stats */}
               <div className="grid grid-cols-2 gap-6">
                 {[
-                  { number: "3+", label: "Yıl Deneyim", icon: "📅" },
-                  { number: "100+", label: "Başarılı Görüşme", icon: "💬" },
-                  { number: "98%", label: "Memnuniyet", icon: "⭐" },
-                  { number: "100%", label: "Gizlilik", icon: "🔒" },
+                  {
+                    number: stats.experience,
+                    label: "Yıl Deneyim",
+                    icon: "📅",
+                  },
+                  {
+                    number: stats.sessions,
+                    label: "Başarılı Görüşme",
+                    icon: "💬",
+                  },
+                  {
+                    number: stats.satisfaction,
+                    label: "Memnuniyet",
+                    icon: "⭐",
+                  },
+                  {
+                    number: stats.privacy,
+                    label: "Gizlilik",
+                    icon: "🔒",
+                  },
                 ].map((stat, index) => (
-                  <div 
+                  <div
                     key={index}
                     className="group relative p-6 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/25 shadow-xl hover:shadow-gold/10 transition-all duration-500 hover:scale-105"
                   >
                     <div className="absolute -inset-1 bg-gradient-to-br from-gold/10 to-teal/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-lg"></div>
                     <div className="relative text-center">
                       <div className="text-2xl mb-2">{stat.icon}</div>
-                      <div className="text-3xl font-bold text-navy mb-1 font-display">{stat.number}</div>
+                      <div className="text-3xl font-bold text-navy mb-1 font-display">
+                        {stat.number}
+                      </div>
                       <div className="text-navy/60 text-sm">{stat.label}</div>
                     </div>
                   </div>
@@ -535,7 +555,7 @@ export default async function AboutPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                 </svg>
                 <span className="text-navy font-bold uppercase tracking-wide text-sm">
-                  Danışmanlık Ortamı
+                  {labels.environmentButton}
                 </span>
               </div>
             </div>
@@ -560,13 +580,12 @@ export default async function AboutPage() {
         </div>
       )}
 
-      {/* Ultra-Modern Content Section */}
+      {/* Content Section */}
       <div className="relative mx-auto max-w-5xl px-6 lg:px-8 pb-32">
         <div className="group relative">
           <div className="absolute -inset-6 bg-gradient-to-br from-white/20 via-gold/10 to-teal/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-2xl"></div>
           
           <div className="relative bg-white/15 backdrop-blur-xl border border-white/25 rounded-3xl p-12 lg:p-16 shadow-2xl">
-            {/* Content header */}
             <div className="relative mb-12 text-center">
               <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-20 h-20 bg-gradient-to-br from-gold/30 to-teal/30 rounded-2xl rotate-45"></div>
               
@@ -575,110 +594,27 @@ export default async function AboutPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
                 <span className="text-navy font-bold uppercase tracking-wide text-sm">
-                  Detaylı Bilgiler
+                  {labels.detailsButton}
                 </span>
               </div>
               
               <div className="w-32 h-1 bg-gradient-to-r from-gold via-teal to-gold rounded-full mx-auto"></div>
             </div>
 
-            {/* Enhanced portable text content */}
             <div className="prose prose-lg prose-navy max-w-none">
               <PortableText value={page.body} components={portableTextComponents} />
             </div>
 
-            {/* Content footer accents */}
             <div className="absolute bottom-4 left-4 w-8 h-8 bg-gradient-to-br from-gold/25 to-teal/25 rounded-lg rotate-12"></div>
             <div className="absolute top-1/2 right-4 w-3 h-16 bg-gradient-to-b from-teal/30 to-transparent rounded-full"></div>
           </div>
         </div>
       </div>
 
-      {/* Certificates Gallery Section */}
-      {page.certificateImages && page.certificateImages.length > 0 && (
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-8 py-20">
-          <div className="text-center mb-16">
-            <div className="relative inline-block mb-6">
-              <div className="absolute -inset-2 bg-gradient-to-r from-gold/20 to-teal/20 rounded-2xl blur-lg"></div>
-              <div className="relative inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-white/10 backdrop-blur-xl border border-gold/25 shadow-xl">
-                <svg className="w-5 h-5 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                </svg>
-                <span className="text-navy font-bold uppercase tracking-wide text-sm">
-                  Eğitim & Sertifikalar
-                </span>
-              </div>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-navy font-display">
-              Profesyonel <span className="text-gradient-gold">Yetkinlikler</span>
-            </h2>
-          </div>
+      {/* --- YENİ SERTİFİKA BÖLÜMÜ --- */}
+      <CertificatesSection certificateImages={page.certificateImages || []} labels={labels} />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {page.certificateImages.map((cert, index) => (
-              <div 
-                key={index}
-                className="group relative"
-                style={{
-                  animationDelay: `${index * 100}ms`,
-                }}
-              >
-                <div className="absolute -inset-2 bg-gradient-to-br from-gold/20 via-transparent to-teal/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-xl"></div>
-                
-                <div className="relative bg-white/15 backdrop-blur-xl border border-white/25 rounded-2xl overflow-hidden shadow-xl hover:shadow-gold/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:-translate-y-1">
-                  {/* Certificate Image */}
-                  <div className="relative h-64 overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy/40 via-transparent to-transparent z-10"></div>
-                    <Image
-                      src={urlFor(cert).width(600).height(400).url()}
-                      alt={cert.alt || "Sertifika"}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
-                    
-                    {/* Badge */}
-                    <div className="absolute top-4 right-4 z-20">
-                      <div className="px-4 py-2 rounded-full bg-gold/90 backdrop-blur-sm shadow-xl">
-                        <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z" />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Certificate Info */}
-                  {cert.caption && (
-                    <div className="p-6">
-                      <p className="text-navy font-medium leading-relaxed text-center">
-                        {cert.caption}
-                      </p>
-                    </div>
-                  )}
-
-                  {/* Card accent */}
-                  <div className="absolute -bottom-1 -right-1 w-8 h-8 bg-gradient-to-br from-teal/30 to-gold/30 rounded-tl-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Trust message */}
-          <div className="mt-16 text-center">
-            <div className="relative inline-block max-w-2xl">
-              <div className="absolute -inset-4 bg-gradient-to-r from-gold/10 via-teal/10 to-gold/10 rounded-3xl blur-xl"></div>
-              <div className="relative p-8 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/25 shadow-xl">
-                <p className="text-lg text-navy/80 leading-relaxed font-light">
-                  Sürekli eğitim ve gelişim, kaliteli psikolojik danışmanlığın temelidir. 
-                  Her sertifika, sizlere daha iyi hizmet verebilmek için attığım adımları temsil eder.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Enhanced Structured Data - Person & Professional Service */}
+      {/* Structured Data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -723,7 +659,7 @@ export default async function AboutPage() {
             url: "https://iremakkan.com",
             areaServed: "TR",
             availableLanguage: ["tr"],
-            priceRange: "$$",
+            priceRange: "$",
             serviceType: [
               "Psikolojik Danışmanlık",
               "Bireysel Terapi",
