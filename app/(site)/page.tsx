@@ -932,7 +932,7 @@ export default async function Home() {
               <div className="relative inline-flex items-center gap-4 px-10 py-5 rounded-full bg-white/10 backdrop-blur-xl border border-gold/30 shadow-2xl">
                 <div className="w-4 h-4 bg-gold rounded-full animate-pulse"></div>
                 <span className="text-white font-bold uppercase tracking-[0.3em]">
-                  Neden Tercih Edilirim
+                  Neden
                 </span>
                 <div className="w-4 h-4 bg-teal-light rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
               </div>

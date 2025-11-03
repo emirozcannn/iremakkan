@@ -485,14 +485,20 @@ export default async function AboutPage() {
                 
                 <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/5]">
                   <div className="absolute inset-0 bg-gradient-to-t from-navy/40 via-transparent to-transparent z-10"></div>
-                  <Image
-                    src={urlFor(page.profileImage).width(800).height(1000).url()}
-                    alt={page.profileImage.alt || "İrem Akkan - Psikolojik Danışman"}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    priority
-                  />
+                  {page.profileImage?.asset?._ref ? (
+                    <Image
+                      src={urlFor(page.profileImage).width(800).height(1000).url()}
+                      alt={page.profileImage.alt || "İrem Akkan - Psikolojik Danışman"}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      priority
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-gold/20 to-navy/20 flex items-center justify-center">
+                      <div className="text-6xl font-bold text-white/50">İA</div>
+                    </div>
+                  )}
                   
                   <div className="absolute bottom-6 left-6 right-6 z-20">
                     <div className="p-6 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/25 shadow-2xl">
