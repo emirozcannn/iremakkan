@@ -6,7 +6,7 @@ export const metadata: Metadata = {
     default: 'İrem Akkan | Psikolojik Danışman - Bireysel & Çift Terapisi',
     template: '%s | İrem Akkan',
   },
-  description: 'Profesyonel psikolojik danışmanlık hizmeti. 8+ yıl deneyim ile bireysel terapi, çift danışmanlığı ve aile terapisi. Online ve yüz yüze görüşme seçenekleri.',
+  description: 'Psikolojik danışmanlık hizmeti. 8+ yıl deneyim ile bireysel terapi, çift danışmanlığı ve aile terapisi. Online ve yüz yüze görüşme seçenekleri.',
   keywords: [
     'psikolojik danışman',
     'psikolog',

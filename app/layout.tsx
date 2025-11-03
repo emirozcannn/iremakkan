@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import StickyCTA from "@/components/StickyCTA";
-import { client } from "@/sanity/lib/client";
 
 // 🧠 Font setup (with CSS variables for Tailwind theme)
 const playfair = Playfair_Display({
@@ -27,9 +23,9 @@ export const metadata: Metadata = {
     template: "%s | İrem Akkan",
   },
   description:
-    "Profesyonel psikolojik danışmanlık, kişisel gelişim ve kurumsal destek hizmetleri. Güven, uzmanlık ve empati odaklı yaklaşım.",
+    "Psikolojik danışmanlık, kişisel gelişim ve kurumsal destek hizmetleri. Güven, uzmanlık ve empati odaklı yaklaşım.",
   keywords: [
-    "psikolojik danışmanlık",
+    "Psikolojik danışmanlık",
     "terapi",
     "bireysel gelişim",
     "kurumsal danışmanlık",
@@ -44,7 +40,7 @@ export const metadata: Metadata = {
     siteName: "İrem Akkan",
     title: "İrem Akkan – Psikolojik Danışmanlık",
     description:
-      "Profesyonel psikolojik danışmanlık ve kurumsal hizmetler. Güven, empati ve bilimsel yaklaşım bir arada.",
+      "Psikolojik danışmanlık ve kurumsal hizmetler. Güven, empati ve bilimsel yaklaşım bir arada.",
     images: [
       {
         url: "https://iremakkan.com/og-image.jpg",
@@ -58,7 +54,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "İrem Akkan – Psikolojik Danışmanlık",
     description:
-      "Profesyonel psikolojik danışmanlık ve stratejik çözümlerle yanınızdayız.",
+      "Psikolojik ve stratejik çözümlerle yanınızdayız.",
     images: ["https://iremakkan.com/og-image.jpg"],
   },
   icons: {
@@ -67,58 +63,16 @@ export const metadata: Metadata = {
   },
 };
 
-// 🧩 Fetch settings from Sanity
-async function getSettings() {
-  try {
-    const settings = await client.fetch(
-      `*[_type == "settings" && _id == "settings"][0]{
-        phoneNumber,
-        email,
-        officeAddress,
-        socialLinks,
-        counselor {
-          name,
-          title,
-          "image": image.asset->url
-        }
-      }`
-    );
-    return settings;
-  } catch (error) {
-    console.error("⚠️ Sanity settings fetch failed:", error);
-    return null;
-  }
-}
-
 // 🏗️ Root Layout Component
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const settings = await getSettings();
-
   return (
     <html lang="tr" className={`${playfair.variable} ${inter.variable}`}>
       <body className="antialiased bg-premium text-navy transition-colors duration-300">
-        {/* Header */}
-        <Header />
-
-        {/* Page Content */}
-        <main className="min-h-screen pt-20 relative overflow-hidden">
-          {/* Hafif arka plan bloblar */}
-          <div className="absolute inset-0 overflow-hidden -z-10">
-            <div className="absolute top-1/4 left-[-10%] w-[40rem] h-[40rem] bg-gold/20 rounded-full blur-3xl animate-blob" />
-            <div className="absolute bottom-0 right-[-10%] w-[35rem] h-[35rem] bg-teal/15 rounded-full blur-3xl animate-blob animation-delay-4000" />
-          </div>
-          {children}
-        </main>
-
-        {/* Footer */}
-        <Footer settings={settings} />
-
-        {/* Sticky CTA Button */}
-        <StickyCTA />
+        {children}
 
         {/* Accessibility Fallback */}
         <noscript>

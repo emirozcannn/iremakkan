@@ -1,15 +1,40 @@
 ﻿'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { usePathname } from 'next/navigation'
+import { client } from '@/sanity/lib/client'
+
+interface NavTest {
+  title: string
+  slug: string
+}
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [testsDropdownOpen, setTestsDropdownOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [dynamicTests, setDynamicTests] = useState<NavTest[]>([])
   const pathname = usePathname()
+
+  // Dinamik testleri Sanity'den çek
+  useEffect(() => {
+    async function fetchTests() {
+      try {
+        const query = `*[_type == "psychologyTest" && isActive == true && showInNavbar == true] | order(sortOrder asc) {
+          title,
+          "slug": slug.current
+        }`
+        const tests = await client.fetch(query)
+        setDynamicTests(tests)
+      } catch (error) {
+        console.error('Testler yüklenirken hata:', error)
+      }
+    }
+
+    fetchTests()
+  }, [])
 
   // Scroll effect için
   if (typeof window !== 'undefined') {
@@ -17,6 +42,23 @@ export default function Header() {
       setIsScrolled(window.scrollY > 20)
     })
   }
+
+  // Statik testler (fallback)
+  const staticTests = [
+    { name: 'Young Şema Ölçeği', href: '/testler/young-sema-olcegi' },
+    { name: 'Beck Depresyon Envanteri', href: '/testler/beck-depresyon' },
+    { name: 'Beck Anksiyete Ölçeği', href: '/testler/beck-anksiyete' },
+    { name: 'Kısa Semptom Envanteri', href: '/testler/kisa-semptom' },
+  ]
+
+  // Dinamik testleri dropdown formatına çevir
+  const dynamicTestsFormatted = dynamicTests.map(test => ({
+    name: test.title,
+    href: `/testler/${test.slug}`
+  }))
+
+  // Tüm testleri birleştir (dinamik testler önce, sonra statik fallback'ler)
+  const allTests = [...dynamicTestsFormatted, ...staticTests]
 
   const navigation = [
     { name: 'Ana Sayfa', href: '/' },
@@ -26,12 +68,7 @@ export default function Header() {
     { 
       name: 'Testler', 
       href: '#',
-      dropdown: [
-        { name: 'Young Şema Ölçeği', href: '/testler/young-sema-olcegi' },
-        { name: 'Beck Depresyon Envanteri', href: '/testler/beck-depresyon' },
-        { name: 'Beck Anksiyete Ölçeği', href: '/testler/beck-anksiyete' },
-        { name: 'Kısa Semptom Envanteri', href: '/testler/kisa-symptom' },
-      ]
+      dropdown: allTests
     },
     { name: 'İletişim', href: '/iletisim' },
   ]
@@ -50,22 +87,12 @@ export default function Header() {
           {/* Logo Section */}
           <Link href="/" className="group relative">
             <div className="flex items-center gap-4">
-              <div className="relative">
-                <div className="absolute -inset-4 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                  <div className="absolute top-0 left-0 w-3 h-3 border-l-2 border-t-2 border-gold"></div>
-                  <div className="absolute top-0 right-0 w-3 h-3 border-r-2 border-t-2 border-gold"></div>
-                  <div className="absolute bottom-0 left-0 w-3 h-3 border-l-2 border-b-2 border-gold"></div>
-                  <div className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2 border-gold"></div>
-                </div>
-                <img
-                  src="/logo.png"
-                  alt="İrem Akkan"
-                  className="h-12 w-auto relative z-10 filter drop-shadow-lg group-hover:scale-105 transition-all duration-500"
-                />
-              </div>
-              <div className="hidden sm:block">
-                
-              </div>
+              <img
+                src="/logo.png"
+                alt="İrem Akkan"
+                className="h-26 w-auto relative z-10 filter drop-shadow-lg group-hover:scale-105 transition-all duration-500"
+              />
+              <div className="hidden sm:block"></div>
             </div>
           </Link>
 

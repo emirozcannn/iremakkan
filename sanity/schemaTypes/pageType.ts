@@ -7,6 +7,7 @@ export const pageType = defineType({
   type: 'document',
   icon: DocumentIcon,
   fields: [
+    
     // 🧱 İçerik (Body)
     defineField({
       name: 'body',
@@ -14,7 +15,17 @@ export const pageType = defineType({
       type: 'blockContent',
       description: 'Sayfa içeriği (metin, görsel veya video)',
     }),
-
+defineField({
+      name: 'title',
+      title: 'Sayfa Başlığı',
+      type: 'string',
+    }),
+    defineField({
+      name: 'slug',
+      title: 'Slug (URL)',
+      type: 'slug',
+      options: { source: 'title', maxLength: 96 },
+    }),
     // 🌟 Hero Section
     defineField({
       name: 'heroTitle',

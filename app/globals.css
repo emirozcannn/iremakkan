@@ -42,6 +42,12 @@
     background-clip: text;
     color: transparent;
   }
+  .text-gradient-teal {
+    background: linear-gradient(90deg, #a7b9ad 0%, #c7d3cb 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
   
   /* Navbar Styles */
   .navbar-glass {
