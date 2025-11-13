@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Token Debug</title>
+</head>
+<body>
+    <h1>Production Token Test</h1>
+    <button onclick="testToken()">Test Token</button>
+    <div id="result"></div>
+
+    <script>
+        async function testToken() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Testing...';
+            
+            try {
+                const response = await fetch('/api/saveTestResult', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        testType: 'beck-depresyon',
+                        answers: [1, 2, 1, 0],
+                        userInfo: {
+                            firstName: 'Test',
+                            lastName: 'User',
+                            email: 'test@example.com',
+                            phone: '123456789'
+                        }
+                    })
+                });
+                
+                const data = await response.json();
+                resultDiv.innerHTML = `
+                    <h3>Response:</h3>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                    <p>Status: ${response.status}</p>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <h3>Error:</h3>
+                    <pre>${error.message}</pre>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

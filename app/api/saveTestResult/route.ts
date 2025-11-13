@@ -3,6 +3,10 @@ import { writeClient } from '@/sanity/lib/client'
 
 export async function POST(req: Request) {
   try {
+    // Debug: Token kontrolü
+    console.log('🔍 SANITY_API_TOKEN mevcut mu?', !!process.env.SANITY_API_TOKEN)
+    console.log('🔍 Token ilk 20 karakter:', process.env.SANITY_API_TOKEN?.substring(0, 20))
+    
     const body = await req.json()
     const { 
       testId, 
