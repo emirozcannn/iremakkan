@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
+import { Analytics } from '@vercel/analytics/react';
 import "./globals.css";
 
 // 🧠 Font setup (with CSS variables for Tailwind theme)
@@ -77,6 +78,7 @@ export default async function RootLayout({
     <html lang="tr" className={`${playfair.variable} ${inter.variable}`}>
       <body className="antialiased bg-premium text-navy transition-colors duration-300">
         {children}
+        <Analytics />
 
         {/* Accessibility Fallback */}
         <noscript>
