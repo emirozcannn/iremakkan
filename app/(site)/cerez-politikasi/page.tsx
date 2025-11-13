@@ -376,7 +376,7 @@ export default function CerezPolitikasiPage() {
                 Çerez politikamız hakkında sorularınız için bizimle iletişime geçebilirsiniz.
               </p>
               <div className="space-y-2 text-gray-700">
-                <p><strong>E-posta:</strong> info@iremakkan.com</p>
+                <p><strong>E-posta:</strong>psk.dan.iremakkan@gmail.com</p>
                 <p><strong>Telefon:</strong> 0543 231 33 00</p>
               </div>
             </div>

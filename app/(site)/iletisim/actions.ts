@@ -44,12 +44,7 @@ export async function submitContactForm(formData: FormData) {
     console.log("Konu:", subject);
     console.log("Mesaj:", message);
 
-    // TODO: Gerçek e-posta gönderimi eklenecek
-    // await sendEmail({
-    //   to: "info@iremakkan.com",
-    //   subject: `İletişim Formu: ${subject}`,
-    //   html: `...`
-    // });
+   
 
     return { success: true };
   } catch (error) {

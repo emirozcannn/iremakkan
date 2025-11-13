@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { client } from '@/sanity/lib/client'
+import { writeClient } from '@/sanity/lib/client'
 
 export async function POST(req: Request) {
   try {
@@ -54,6 +54,49 @@ export async function POST(req: Request) {
       )
     }
 
+    // Test sorularını al
+    const getQuestionData = async (testType: string, questionIndex: number, answerValue: number) => {
+      try {
+        // Test soru dosyalarını dinamik olarak import et
+        let questions: Array<{ id: number; text: string; options: string[] }> = []
+        
+        switch (testType) {
+          case 'beck-depresyon':
+            const beckDepModule = await import('@/app/(site)/testler/beck-depresyon/questions')
+            questions = beckDepModule.questions
+            break
+          case 'beck-anksiyete':
+            const beckAnxModule = await import('@/app/(site)/testler/beck-anksiyete/questions')
+            questions = beckAnxModule.questions
+            break
+          case 'kisa-semptom':
+            const shortSymptomModule = await import('@/app/(site)/testler/kisa-semptom/questions')
+            questions = shortSymptomModule.questions
+            break
+          case 'young-sema-olcegi':
+            const youngSchemaModule = await import('@/app/(site)/testler/young-sema-olcegi/questions')
+            questions = youngSchemaModule.questions
+            break
+          default:
+            return null
+        }
+
+        const question = questions[questionIndex]
+        if (!question) return null
+
+        return {
+          questionId: `${testType}-q${questionIndex + 1}`,
+          questionText: question.text,
+          selectedOption: question.options[answerValue] || `Seçenek ${answerValue}`,
+          selectedValue: answerValue,
+          weight: 1.0,
+        }
+      } catch (error) {
+        console.error(`Test soruları yüklenirken hata (${testType}):`, error)
+        return null
+      }
+    }
+
     // Sanity'ye kaydetmek için test result belgesi oluştur
     const testResult = {
       _type: 'testResult',
@@ -80,8 +123,27 @@ export async function POST(req: Request) {
         }))
       }),
       
-      // Legacy basit answer formatı
-      ...(Array.isArray(answers) && answers.length > 0 && typeof answers[0] === 'number' && {
+      // Legacy testler için gelişmiş answer formatı
+      ...(Array.isArray(answers) && answers.length > 0 && typeof answers[0] === 'number' && testType && {
+        answers: await Promise.all(
+          answers.map(async (answerValue, index) => {
+            const questionData = await getQuestionData(testType, index, answerValue)
+            return questionData ? {
+              _type: 'object',
+              _key: `answer-${index}`,
+              ...questionData
+            } : {
+              _type: 'object',
+              _key: `answer-${index}`,
+              questionId: `${testType}-q${index + 1}`,
+              questionText: `Soru ${index + 1}`,
+              selectedOption: `Seçenek ${answerValue}`,
+              selectedValue: answerValue,
+              weight: 1.0,
+            }
+          })
+        ),
+        // Legacy answers'ı da sakla geriye uyumluluk için
         legacyAnswers: answers
       }),
       
@@ -105,7 +167,7 @@ export async function POST(req: Request) {
     }
 
     // Sanity'ye kaydet
-    const result = await client.create(testResult)
+    const result = await writeClient.create(testResult)
     
     console.log('✅ Test sonucu Sanity\'ye kaydedildi:', {
       id: result._id,

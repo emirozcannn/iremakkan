@@ -313,14 +313,8 @@ export default async function ServiceDetailPage({
                 priority
               />
               
-              {/* Floating badge on image */}
-              <div className="absolute top-6 right-6 z-20">
-                <div className="px-6 py-3 rounded-full bg-gold/90 backdrop-blur-sm shadow-xl">
-                  <span className="text-white font-bold text-sm uppercase tracking-wide">
-                    Premium Hizmet
-                  </span>
-                </div>
-              </div>
+             
+             
             </div>
           </div>
         )}

@@ -19,6 +19,13 @@ function interpretBSI(score: number) {
   return 'Şiddetli düzeyde psikolojik belirti'
 }
 
+function getSeverityLevel(score: number) {
+  if (score <= 60) return "low"
+  if (score <= 120) return "mild"
+  if (score <= 180) return "moderate"
+  return "severe"
+}
+
 export default function KisaSemptomTestPage() {
   const [currentStep, setCurrentStep] = useState(0)
   const [answers, setAnswers] = useState<Answer[]>([])
@@ -101,6 +108,7 @@ export default function KisaSemptomTestPage() {
           answers: answers.map(a => a.value),
           totalScore: totalScore,
           interpretation: interpretation,
+          severity: getSeverityLevel(totalScore || 0),
           userInfo: {
             firstName: contactFirstName.trim(),
             lastName: contactLastName.trim(),

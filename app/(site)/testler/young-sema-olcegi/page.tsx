@@ -17,6 +17,12 @@ function interpretYoungSchema(score: number) {
   return 'Yüksek düzeyde şema etkisi (dikkat edilmesi gerekir)'
 }
 
+function getSeverityLevel(score: number) {
+  if (score <= 2) return "low"
+  if (score <= 3.5) return "moderate"
+  return "high"
+}
+
 export default function YoungSchemaQuestionnairePage() {
   const [currentStep, setCurrentStep] = useState(0)
   const [answers, setAnswers] = useState<Answer[]>([])
@@ -97,6 +103,7 @@ export default function YoungSchemaQuestionnairePage() {
           answers: answers.map(a => a.value),
           totalScore: totalScore,
           interpretation: interpretation,
+          severity: getSeverityLevel(totalScore || 0),
           userInfo: {
             firstName: contactFirstName.trim(),
             lastName: contactLastName.trim(),

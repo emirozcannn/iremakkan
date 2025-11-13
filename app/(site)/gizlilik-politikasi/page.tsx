@@ -260,9 +260,8 @@ export default function GizlilikPolitikasiPage() {
                   <h3 className="font-semibold text-navy mb-3">İç Başvuru:</h3>
                   <p className="text-gray-700 mb-2">Öncelikle doğrudan bizimle iletişime geçebilirsiniz:</p>
                   <ul className="text-gray-700 space-y-1">
-                    <li>• E-posta: info@iremakkan.com</li>
-                    <li>• Telefon: [Telefon numarası]</li>
-                    <li>• Yazılı başvuru: [Ofis adresi]</li>
+                    <li>• E-posta: psk.dan.iremakkan@gmail.com</li>
+                    <li>• Telefon: [0543 231 33 00]</li>
                   </ul>
                 </div>
 
@@ -284,9 +283,9 @@ export default function GizlilikPolitikasiPage() {
                 Gizlilik politikamız hakkında sorularınız için bizimle iletişime geçebilirsiniz.
               </p>
               <div className="space-y-2 text-gray-700">
-                <p><strong>E-posta:</strong> info@iremakkan.com</p>
+                <p><strong>E-posta:</strong>psk.dan.iremakkan@gmail.com</p>
                 <p><strong>Telefon:</strong> 0543 231 33 00</p>
-                <p><strong>Ofis:</strong> [Ofis adresi]</p>
+                
               </div>
             </div>
 

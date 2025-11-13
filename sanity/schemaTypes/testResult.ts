@@ -12,7 +12,7 @@ export default defineType({
       title: 'Test',
       type: 'reference',
       to: [{ type: 'psychologyTest' }],
-      description: 'Hangi test için sonuç gönderlidi',
+      description: 'Hangi test için sonuç gönderildi',
     }),
     defineField({
       name: 'testType',
@@ -73,15 +73,20 @@ export default defineType({
           ],
           preview: {
             select: {
+              questionId: 'questionId',
               questionText: 'questionText',
               selectedOption: 'selectedOption',
               selectedValue: 'selectedValue',
             },
             prepare(selection) {
-              const { questionText, selectedOption, selectedValue } = selection
+              const { questionId, questionText, selectedOption, selectedValue } = selection
+              const shortQuestionText = questionText && questionText.length > 60 
+                ? `${questionText.substring(0, 60)}...` 
+                : questionText || 'Soru'
+              
               return {
-                title: questionText ? (questionText.length > 50 ? `${questionText.substring(0, 50)}...` : questionText) : 'Soru',
-                subtitle: `${selectedOption} (${selectedValue} puan)`,
+                title: `${questionId}: ${shortQuestionText}`,
+                subtitle: `✓ ${selectedOption} → ${selectedValue} puan`,
               }
             },
           },
@@ -254,21 +259,56 @@ export default defineType({
       testTitle: 'test.title',
       testType: 'testType',
       totalScore: 'totalScore',
+      interpretation: 'interpretation',
+      severity: 'severity',
       date: 'createdAt',
       firstName: 'userInfo.firstName',
       lastName: 'userInfo.lastName',
       needsFollowUp: 'needsFollowUp',
     },
     prepare(selection) {
-      const { testTitle, testType, totalScore, date, firstName, lastName, needsFollowUp } = selection
-      const formattedDate = date ? new Date(date).toLocaleDateString('tr-TR') : 'Tarih Yok'
-      const testName = testTitle || testType || 'Test Sonucu'
+      const { testTitle, testType, totalScore, interpretation, severity, date, firstName, lastName, needsFollowUp } = selection
+      const formattedDate = date ? new Date(date).toLocaleDateString('tr-TR', {
+        day: '2-digit',
+        month: '2-digit', 
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      }) : 'Tarih Yok'
+      
+      // Test adını belirle
+      const getTestDisplayName = (testType: string | undefined, testTitle: string | undefined) => {
+        if (testTitle) return testTitle
+        switch (testType) {
+          case 'beck-depresyon': return 'Beck Depresyon Envanteri'
+          case 'beck-anksiyete': return 'Beck Anksiyete Envanteri'
+          case 'kisa-semptom': return 'Kısa Semptom Envanteri'
+          case 'young-sema-olcegi': return 'Young Şema Ölçeği'
+          default: return 'Test Sonucu'
+        }
+      }
+      
+      const testName = getTestDisplayName(testType, testTitle)
       const userName = firstName && lastName ? `${firstName} ${lastName}` : 'Anonim'
+      
+      // Severity emoji'leri
+      const getSeverityEmoji = (severity: string | undefined) => {
+        switch (severity) {
+          case 'low': return '🟢'
+          case 'mild': return '🟡'  
+          case 'moderate': return '🟠'
+          case 'high': return '🔴'
+          case 'severe': return '🚨'
+          default: return '⚪'
+        }
+      }
+      
+      const severityEmoji = getSeverityEmoji(severity)
       const followUpIcon = needsFollowUp ? ' 🔔' : ''
       
       return {
-        title: `${testName} - ${userName}${followUpIcon}`,
-        subtitle: totalScore ? `Puan: ${totalScore} (${formattedDate})` : formattedDate,
+        title: `${severityEmoji} ${testName} - ${userName}${followUpIcon}`,
+        subtitle: `${totalScore || 0} puan • ${interpretation || 'Yorum yok'} • ${formattedDate}`,
         media: DocumentIcon,
       }
     },

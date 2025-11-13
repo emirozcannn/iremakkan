@@ -18,6 +18,13 @@ function interpretBeckDepression(score: number) {
   return "Şiddetli depresyon düzeyi"
 }
 
+function getSeverityLevel(score: number) {
+  if (score <= 9) return "low"
+  if (score <= 16) return "mild"
+  if (score <= 29) return "moderate"
+  return "severe"
+}
+
 export default function BeckDepressionTestPage() {
   const [currentStep, setCurrentStep] = useState(0)
   const [answers, setAnswers] = useState<Answer[]>([])
@@ -66,6 +73,7 @@ export default function BeckDepressionTestPage() {
   const handleSubmit = () => {
     const total = answers.reduce((sum, a) => sum + a.value, 0)
     const interpretationText = interpretBeckDepression(total)
+    const severityLevel = getSeverityLevel(total)
     setTotalScore(total)
     setInterpretation(interpretationText)
     setAwaitingContact(true)
@@ -101,6 +109,7 @@ export default function BeckDepressionTestPage() {
           answers: answers.map(a => a.value),
           totalScore: totalScore,
           interpretation: interpretation,
+          severity: getSeverityLevel(totalScore || 0),
           userInfo: {
             firstName: contactFirstName.trim(),
             lastName: contactLastName.trim(),

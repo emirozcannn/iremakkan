@@ -759,7 +759,7 @@ export default async function Home() {
             image: "https://iremakkan.com/og-image.png",
             description: "Profesyonel psikolojik danışmanlık hizmeti. Bireysel terapi, çift danışmanlığı ve aile terapisi.",
             telephone: "+90-555-123-4567",
-            email: "info@iremakkan.com",
+            email: "psk.dan.iremakkan@gmail.com",
             address: {
               "@type": "PostalAddress",
               addressLocality: "Istanbul",

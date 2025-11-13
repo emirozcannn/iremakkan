@@ -113,11 +113,6 @@ export const structure: StructureResolver = (S) =>
         ),
       
       S.divider(),
-      
-      // Eski Psikolojik Testler (Fallback)
-      S.documentTypeListItem('testPage').title('Eski Test Sayfaları (Fallback)'),
-      
-      S.divider(),
-      
+   
   
     ])

@@ -19,6 +19,13 @@ function interpretBeckAnxiety(score: number) {
   return "Yüksek düzeyde anksiyete"
 }
 
+function getSeverityLevel(score: number) {
+  if (score <= 7) return "low"
+  if (score <= 15) return "mild"
+  if (score <= 25) return "moderate"
+  return "severe"
+}
+
 export default function BeckAnxietyTestPage() {
   const [currentStep, setCurrentStep] = useState(0)
   const [answers, setAnswers] = useState<Answer[]>([])
@@ -102,6 +109,7 @@ export default function BeckAnxietyTestPage() {
           answers: answers.map(a => a.value),
           totalScore: totalScore,
           interpretation: interpretation,
+          severity: getSeverityLevel(totalScore || 0),
           userInfo: {
             firstName: contactFirstName.trim(),
             lastName: contactLastName.trim(),

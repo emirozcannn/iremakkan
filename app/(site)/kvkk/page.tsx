@@ -36,7 +36,7 @@ export default function KVKKPage() {
               <div className="bg-cream/50 p-6 rounded-xl">
                 <p className="font-semibold text-navy">Veri Sorumlusu:</p>
                 <p className="text-gray-700">İrem Akkan - Psikolojik Danışman</p>
-                <p className="text-gray-700">E-posta: info@iremakkan.com</p>
+                <p className="text-gray-700">E-posta: psk.dan.iremakkan@gmail.com</p>
                 <p className="text-gray-700">Telefon: 0543 231 33 00</p>
               </div>
             </div>
@@ -208,11 +208,11 @@ export default function KVKKPage() {
                 <div className="space-y-4">
                   <div>
                     <p className="font-semibold text-navy">E-posta ile:</p>
-                    <p className="text-gray-700">info@iremakkan.com</p>
+                    <p className="text-gray-700">psk.dan.iremakkan@gmail.com</p>
                   </div>
                   <div>
-                    <p className="font-semibold text-navy">Yazılı başvuru ile:</p>
-                    <p className="text-gray-700">[Ofis adresi]</p>
+                   
+               
                   </div>
                   <div className="text-sm text-gray-600 italic">
                     <p>* Başvurularınız en geç 30 gün içinde yanıtlanacaktır.</p>
@@ -255,7 +255,7 @@ export default function KVKKPage() {
                 KVKK kapsamındaki haklarınız ve kişisel veri işleme faaliyetlerimiz hakkında daha fazla bilgi için bizimle iletişime geçebilirsiniz.
               </p>
               <div className="space-y-2 text-gray-700">
-                <p><strong>E-posta:</strong> info@iremakkan.com</p>
+                <p><strong>E-posta:</strong> psk.dan.iremakkan@gmail.com</p>
                 <p><strong>Telefon:</strong> 0543 231 33 00</p>
               </div>
             </div>

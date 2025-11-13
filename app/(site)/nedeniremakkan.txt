@@ -1,0 +1,154 @@
+{/* Ultra-Modern "Neden İrem AKKAN" Section */}
+      <section className="py-32 relative overflow-hidden">
+        {/* Advanced background architecture */}
+        <div className="absolute inset-0 bg-gradient-to-br from-navy via-navy-dark to-charcoal">
+          {/* Sophisticated pattern system */}
+          <div className="absolute inset-0 opacity-20" style={{
+            backgroundImage: `
+              radial-gradient(circle at 20% 80%, rgba(197,165,114,0.4) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(44,95,93,0.4) 0%, transparent 50%),
+              radial-gradient(circle at 40% 40%, rgba(197,165,114,0.2) 0%, transparent 50%)
+            `,
+          }}></div>
+
+          {/* Dynamic floating elements */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-24 right-24 w-56 h-56 border-2 border-gold/25 rotate-12 rounded-[3rem] animate-pulse" style={{animationDuration: '6s'}}></div>
+            <div className="absolute bottom-32 left-32 w-40 h-40 bg-gradient-to-br from-teal/20 to-transparent rounded-full blur-xl animate-pulse" style={{animationDelay: '2s'}}></div>
+            <div className="absolute top-1/3 left-1/4 w-8 h-32 bg-gradient-to-b from-gold/40 to-transparent rotate-45"></div>
+            <div className="absolute bottom-1/3 right-1/4 w-32 h-8 bg-gradient-to-r from-teal/40 to-transparent rotate-12"></div>
+            
+            {/* Enhanced particle constellation */}
+            {Array.from({ length: 20 }).map((_, i) => (
+              <div
+                key={i}
+                className="absolute w-2 h-2 bg-gold/30 rounded-full animate-pulse"
+                style={{
+                  left: `${5 + Math.random() * 90}%`,
+                  top: `${5 + Math.random() * 90}%`,
+                  animationDelay: `${Math.random() * 6}s`,
+                  animationDuration: `${3 + Math.random() * 4}s`,
+                }}
+              ></div>
+            ))}
+          </div>
+
+          {/* Premium ambient lighting */}
+          <div className="absolute inset-0">
+            <div className="absolute top-0 left-0 w-2/3 h-2/3 bg-gradient-radial from-gold/15 via-gold/5 to-transparent blur-3xl"></div>
+            <div className="absolute bottom-0 right-0 w-2/3 h-2/3 bg-gradient-radial from-teal/20 via-teal/8 to-transparent blur-3xl"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-24 bg-gradient-to-r from-transparent via-gold/10 to-transparent blur-2xl"></div>
+          </div>
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-5xl px-6 lg:px-8 text-center">
+          <AnimatedSection>
+            {/* Premium badge */}
+            <div className="relative inline-block mb-12">
+              <div className="absolute -inset-4 bg-gradient-to-r from-gold/25 to-teal/25 rounded-full blur-xl"></div>
+              <div className="relative inline-flex items-center gap-4 px-10 py-5 rounded-full bg-white/10 backdrop-blur-xl border border-gold/30 shadow-2xl">
+                <div className="w-4 h-4 bg-gold rounded-full animate-pulse"></div>
+                <span className="text-white font-bold uppercase tracking-[0.3em]">
+                  Neden
+                </span>
+                <div className="w-4 h-4 bg-teal-light rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
+              </div>
+            </div>
+
+            <div className="space-y-10 mb-16">
+              <h2 className="text-6xl md:text-7xl lg:text-8xl font-bold text-white font-display leading-[0.9]">
+                Neden{" "}
+                <span className="text-gradient-gold block lg:inline">
+                  İrem AKKAN
+                </span>
+              </h2>
+
+              {/* Artistic separator */}
+              <div className="flex items-center justify-center gap-8">
+                <div className="w-32 h-[3px] bg-gradient-to-r from-transparent to-gold rounded-full"></div>
+                <div className="flex gap-4">
+                  <div className="w-3 h-3 bg-gold rounded-full animate-pulse"></div>
+                  <div className="w-4 h-4 bg-gold/70 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
+                  <div className="w-3 h-3 bg-gold/50 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
+                </div>
+                <div className="w-32 h-[3px] bg-gradient-to-l from-transparent to-gold rounded-full"></div>
+              </div>
+
+              <p className="text-xl md:text-2xl text-white/80 max-w-4xl mx-auto leading-relaxed">
+                Psikolojik danışmanlık sürecinde size sunduğum profesyonel değerler ve yaklaşımlar
+              </p>
+            </div>
+
+            {/* Value cards */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+              {[
+                {
+                  icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
+                  title: "Gizlilik ve Güven",
+                  desc: "Tüm görüşmeleriniz tamamen gizlidir. Güvenli bir ortamda kendinizi özgürce ifade edebilirsiniz."
+                },
+                {
+                  icon: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253",
+                  title: "Kanıta Dayalı Yöntemler",
+                  desc: "Bilimsel araştırmalarla desteklenen, güncel psikolojik yaklaşımlar kullanıyorum."
+                },
+                {
+                  icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z",
+                  title: "Empatik Yaklaşım",
+                  desc: "Sizi yargılamadan dinliyor, anlamaya çalışıyor ve birlikte çözüm yolları buluyoruz."
+                }
+              ].map((item, i) => (
+                <div key={i} className="group relative">
+                  <div className="absolute -inset-2 bg-gradient-to-r from-gold/20 to-teal/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-lg"></div>
+                  <div className="relative bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-gold/40 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:-translate-y-2">
+                    <div className="flex flex-col items-center text-center">
+                      <div className="w-16 h-16 bg-gradient-to-br from-gold/30 to-teal/30 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
+                        </svg>
+                      </div>
+                      <h3 className="text-xl font-bold text-white mb-3 font-display">{item.title}</h3>
+                      <p className="text-white/80 text-sm leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Ultra-modern CTA buttons */}
+            <div className="flex flex-col lg:flex-row gap-8 justify-center items-center">
+              <Link href="/iletisim" className="group relative">
+                <div className="absolute -inset-3 bg-gradient-to-r from-gold via-gold-light to-gold rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-lg"></div>
+                <Button 
+                  size="xl" 
+                  variant="primary" 
+                  className="relative bg-gradient-to-r from-gold via-gold-light to-gold hover:from-gold-light hover:via-gold hover:to-gold-dark shadow-2xl shadow-gold/40 hover:shadow-gold/60 transition-all duration-500 hover:scale-105 px-12 py-6 text-lg font-bold border-2 border-gold/30 hover:border-gold/50"
+                >
+                  <span className="flex items-center gap-4">
+                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    Hemen Randevu Alın
+                  </span>
+                </Button>
+              </Link>
+              
+              <Link href="/hakkimda" className="group relative">
+                <div className="absolute -inset-3 bg-gradient-to-r from-white/10 to-white/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-lg"></div>
+                <Button 
+                  size="xl" 
+                  variant="outline" 
+                  className="relative bg-white/5 backdrop-blur-xl hover:bg-white/15 border-2 border-white/30 hover:border-white/50 text-white shadow-2xl hover:shadow-white/10 transition-all duration-500 hover:scale-105 px-12 py-6 text-lg font-bold"
+                >
+                  <span className="flex items-center gap-4">
+                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    Beni Tanıyın
+                  </span>
+                </Button>
+              </Link>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>

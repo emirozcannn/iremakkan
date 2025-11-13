@@ -204,7 +204,7 @@ export default function Footer({ settings }: FooterProps) {
           <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
               <p className="text-white/60 text-sm">
-                &copy; {currentYear} <span className="text-gold font-semibold">İrem Akkan</span>
+                &copy; {currentYear} <span className="text-gold font-semibold">İrem Akkan</span> Tüm hakları saklıdır.
               </p>
               <div className="hidden md:flex items-center gap-3 text-xs text-white/40">
                 <div className="w-1 h-1 bg-gold/50 rounded-full"></div>
