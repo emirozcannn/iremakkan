@@ -197,31 +197,157 @@ export const homePageType = defineType({
       ],
     }),
 
-    // 📈 İstatistik Bölümü
+    // 🎯 Yardımcı Olduğum Konular Bölümü
     defineField({
-      name: 'statsSection',
-      title: 'İstatistik Bölümü',
+      name: 'helpTopicsSection',
+      title: 'Yardımcı Olduğum Konular Bölümü',
       type: 'object',
       fields: [
         defineField({
-          name: 'title',
-          title: 'Başlık',
+          name: 'badge',
+          title: 'Rozet Metni',
           type: 'string',
-          initialValue: 'Profesyonel Deneyim'
+          initialValue: 'Uzmanlık Alanlarım'
+        }),
+        defineField({
+          name: 'title',
+          title: 'Ana Başlık',
+          type: 'string',
+          initialValue: 'Hangi Konularda **Yardımcı Oluyorum**'
         }),
         defineField({
           name: 'description',
           title: 'Açıklama',
           type: 'text',
           rows: 2,
-          initialValue: 'Psikolojik danışmanlık alanındaki deneyimim ve uzmanlığım ile yanınızdayım'
+          initialValue: 'Yaşadığınız zorluklarla başa çıkmanızda size rehberlik etmek için buradayım. Her birey özeldir ve her duruma özel yaklaşımlar geliştirilir.'
+        }),
+        defineField({
+          name: 'topics',
+          title: 'Yardımcı Olduğum Konular',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              name: 'helpTopic',
+              title: 'Yardım Konusu',
+              fields: [
+                defineField({
+                  name: 'icon',
+                  title: 'İkon',
+                  type: 'string',
+                  description: 'Emoji veya ikon kodu (🧠, 💚, ⚡ vb.)',
+                  validation: (Rule) => Rule.required()
+                }),
+                defineField({
+                  name: 'title',
+                  title: 'Başlık',
+                  type: 'string',
+                  description: 'Konu başlığı (örn: Depresyon ve Kaygı)',
+                  validation: (Rule) => Rule.required()
+                }),
+                defineField({
+                  name: 'description',
+                  title: 'Açıklama',
+                  type: 'text',
+                  rows: 3,
+                  description: 'Konuyla ilgili detaylı açıklama',
+                  validation: (Rule) => Rule.required()
+                }),
+                defineField({
+                  name: 'accentColor',
+                  title: 'Vurgu Rengi',
+                  type: 'string',
+                  description: 'Kartın vurgu rengi (örn: blue, green, purple, pink, orange)',
+                  options: {
+                    list: [
+                      { title: 'Mavi - Blue', value: 'blue' },
+                      { title: 'Yeşil - Green', value: 'green' },
+                      { title: 'Mor - Purple', value: 'purple' },
+                      { title: 'Pembe - Pink', value: 'pink' },
+                      { title: 'Turuncu - Orange', value: 'orange' },
+                      { title: 'Kırmızı - Red', value: 'red' },
+                      { title: 'Sarı - Yellow', value: 'yellow' },
+                      { title: 'Lacivert - Indigo', value: 'indigo' }
+                    ]
+                  },
+                  initialValue: 'blue'
+                }),
+                defineField({
+                  name: 'symptoms',
+                  title: 'Belirtiler/Alt Konular',
+                  type: 'array',
+                  of: [{ type: 'string' }],
+                  description: 'Bu konuyla ilgili belirtiler veya alt konular (örn: "Sürekli üzgünlük hali", "Uyku problemleri")'
+                })
+              ],
+              preview: {
+                select: {
+                  title: 'title',
+                  subtitle: 'description',
+                  icon: 'icon'
+                },
+                prepare({ title, subtitle, icon }) {
+                  return {
+                    title: `${icon} ${title}`,
+                    subtitle: subtitle?.substring(0, 60) + (subtitle?.length > 60 ? '...' : '')
+                  }
+                }
+              }
+            }
+          ],
+          validation: (Rule) => Rule.min(4).max(12).warning('4-12 arası konu eklemeniz önerilir'),
+          initialValue: [
+            {
+              icon: '🧠',
+              title: 'Depresyon ve Kaygı Bozuklukları',
+              description: 'Günlük yaşamınızı etkileyen depresif belirtiler, kaygı durumları ve panik atak sorunlarında destek sağlıyorum.',
+              accentColor: 'blue',
+              symptoms: ['Sürekli üzgünlük hali', 'Motivasyon kaybı', 'Kaygı nöbetleri', 'Panik atak']
+            },
+            {
+              icon: '💚',
+              title: 'İlişki ve İletişim Sorunları',
+              description: 'Çift terapisi, aile içi iletişim problemleri ve kişilerarası ilişki zorluklarında rehberlik ediyorum.',
+              accentColor: 'green',
+              symptoms: ['İletişim kopukluğu', 'Çift uyumsuzluğu', 'Aile içi çatışmalar', 'Güven problemleri']
+            },
+            {
+              icon: '⚡',
+              title: 'Travma ve Stres Yönetimi',
+              description: 'Travma sonrası stres, yas süreci ve yaşamsal değişimlere uyum konularında destek veriyorum.',
+              accentColor: 'purple',
+              symptoms: ['Travma sonrası stres', 'Kayıp ve yas', 'Kronik stres', 'Uyum problemleri']
+            },
+            {
+              icon: '🌟',
+              title: 'Benlik Saygısı ve Özgüven',
+              description: 'Özgüven eksikliği, kendini kabul etme ve kişisel gelişim konularında yol gösteriyorum.',
+              accentColor: 'pink',
+              symptoms: ['Düşük özgüven', 'Kendini değersiz hissetme', 'Sosyal çekingenlik', 'Karar verme zorluğu']
+            },
+            {
+              icon: '🔥',
+              title: 'Öfke ve Duygu Yönetimi',
+              description: 'Öfke kontrolü, saldırganlık problemleri ve duygusal düzenleme konularında çalışıyoruz.',
+              accentColor: 'red',
+              symptoms: ['Öfke patlamaları', 'Agresif davranışlar', 'Duygusal dengesizlik', 'İmpulsivite']
+            },
+            {
+              icon: '👥',
+              title: 'Sosyal Anksiyete ve Fobi',
+              description: 'Sosyal ortamlarda yaşanan kaygı, fobiler ve toplumsal durum korkularında rehberlik sağlıyorum.',
+              accentColor: 'indigo',
+              symptoms: ['Sosyal kaygı', 'Konuşma korkusu', 'Topluluk fobisi', 'Performans kaygısı']
+            }
+          ]
         }),
         defineField({
           name: 'bottomText',
-          title: 'Alt Metin',
+          title: 'Alt Metin/Çağrı',
           type: 'text',
           rows: 2,
-          initialValue: 'Her danışan özeldir. Bireysel ihtiyaçlarınıza uygun, kişiye özel terapi yöntemleriyle çalışıyorum.'
+          initialValue: 'Yukarıdaki konulardan herhangi biriyle ilgili destek almak istiyorsanız, birlikte çalışabiliriz. Her birey özeldir ve size özel bir terapi planı oluştururuz.'
         })
       ]
     }),

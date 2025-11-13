@@ -3,7 +3,7 @@ import Image from "next/image";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
 import AnimatedSection from "@/components/AnimatedSection";
-import StatsCounter from "@/components/StatsCounter";
+import HelpTopicsSection from "@/components/HelpTopicsSection";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 
@@ -58,16 +58,18 @@ interface HomePageData {
   heroEndingText?: string;
   heroButton1Text?: string;
   heroButton2Text?: string;
-  statsNumbers?: {
-    experience: string;
-    sessions: string;
-    satisfaction: string;
-    privacy: string;
-  };
-  statsSection?: {
-    title: string;
-    description: string;
-    bottomText: string;
+  helpTopicsSection?: {
+    badge?: string;
+    title?: string;
+    description?: string;
+    topics?: Array<{
+      icon: string;
+      title: string;
+      description: string;
+      accentColor: string;
+      symptoms?: string[];
+    }>;
+    bottomText?: string;
   };
   servicesSection?: {
     title: string;
@@ -156,8 +158,7 @@ async function getHomePageData(): Promise<HomePageData | null> {
         heroEndingText,
         heroButton1Text,
         heroButton2Text,
-        statsNumbers,
-        statsSection,
+        helpTopicsSection,
         servicesSection,
         blogSection,
         whySection,
@@ -418,153 +419,16 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Ultra-Modern Stats Section */}
-      <section
-        aria-labelledby="stats-heading"
-        className="py-32 relative overflow-hidden"
-      >
-        {/* Sophisticated background system */}
-        <div className="absolute inset-0 bg-gradient-to-br from-ivory via-pearl to-stone">
-          {/* Geometric grid overlay */}
-          <div className="absolute inset-0 opacity-20" style={{
-            backgroundImage: `
-              linear-gradient(0deg, transparent 24%, rgba(26,31,46,0.05) 25%, rgba(26,31,46,0.05) 26%, transparent 27%, transparent 74%, rgba(26,31,46,0.05) 75%, rgba(26,31,46,0.05) 76%, transparent 77%, transparent),
-              linear-gradient(90deg, transparent 24%, rgba(197,165,114,0.1) 25%, rgba(197,165,114,0.1) 26%, transparent 27%, transparent 74%, rgba(197,165,114,0.1) 75%, rgba(197,165,114,0.1) 76%, transparent 77%, transparent)
-            `,
-            backgroundSize: '80px 80px'
-          }}></div>
-          
-          {/* Ambient elements */}
-          <div className="absolute top-20 right-20 w-32 h-32 border border-gold/20 rotate-45 rounded-2xl animate-pulse" style={{animationDuration: '3s'}}></div>
-          <div className="absolute bottom-20 left-20 w-24 h-24 bg-gradient-to-br from-teal/10 to-transparent rounded-full blur-sm"></div>
-        </div>
-
-        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 text-center">
-          <AnimatedSection>
-            {/* Modern section badge */}
-            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/80 backdrop-blur-sm border border-gold/20 shadow-lg mb-8">
-              <div className="w-2 h-2 bg-gold rounded-full animate-pulse"></div>
-              <span className="text-navy text-xs font-bold uppercase tracking-wider">Güvenilir Deneyim</span>
-              <div className="w-2 h-2 bg-teal rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
-            </div>
-
-            <div className="space-y-6 mb-16">
-              <h2
-                id="stats-heading"
-                className="text-5xl md:text-6xl lg:text-7xl font-bold text-navy font-display leading-tight"
-              >
-                {homePageData?.statsSection?.title ? (
-                  <>
-                    {homePageData.statsSection.title.split(' ').slice(0, -1).join(' ')}{" "}
-                    <span className="text-gradient-gold block lg:inline">
-                      {homePageData.statsSection.title.split(' ').slice(-1)[0]}
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    Deneyim ve{" "}
-                    <span className="text-gradient-gold block lg:inline">Güven</span>
-                  </>
-                )}
-              </h2>
-              
-              {/* Artistic separator */}
-              <div className="flex items-center justify-center gap-6">
-                <div className="w-20 h-[2px] bg-gradient-to-r from-transparent to-navy/30"></div>
-                <div className="w-4 h-4 bg-gold/30 rotate-45"></div>
-                <div className="w-20 h-[2px] bg-gradient-to-l from-transparent to-navy/30"></div>
-              </div>
-              
-              <p className="text-lg text-slate max-w-3xl mx-auto leading-relaxed">
-                {homePageData?.statsSection?.description || "Psikolojik danışmanlık alanında uzun yıllara dayanan deneyimimizle yanınızdayız"}
-              </p>
-            </div>
-          </AnimatedSection>
-
-          <AnimatedSection delay={0.2}>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-              {(() => {
-                // Stats data from Sanity or fallback
-                const stats = homePageData?.statsNumbers ? [
-                  { 
-                    value: homePageData.statsNumbers.experience, 
-                    label: "Yıllık Deneyim", 
-                    icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z", 
-                    gradient: "from-gold/20 to-gold/40" 
-                  },
-                  { 
-                    value: homePageData.statsNumbers.sessions, 
-                    label: "Başarılı Seans", 
-                    icon: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z", 
-                    gradient: "from-navy/20 to-navy/40" 
-                  },
-                  { 
-                    value: homePageData.statsNumbers.satisfaction, 
-                    label: "Memnuniyet", 
-                    icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z", 
-                    gradient: "from-gold/20 to-teal/20" 
-                  },
-                  { 
-                    value: homePageData.statsNumbers.privacy, 
-                    label: "Gizlilik", 
-                    icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z", 
-                    gradient: "from-teal/20 to-teal/40" 
-                  },
-                ] : [
-                  { value: "8+", label: "Yıllık Deneyim", icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z", gradient: "from-gold/20 to-gold/40" },
-                  { value: "200+", label: "Mutlu Danışan", icon: "M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z", gradient: "from-teal/20 to-teal/40" },
-                  { value: "500+", label: "Başarılı Seans", icon: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z", gradient: "from-navy/20 to-navy/40" },
-                  { value: "95%", label: "Memnuniyet", icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z", gradient: "from-gold/20 to-teal/20" },
-                ];
-
-                return stats.map((stat, i) => {
-                  // Parse number and suffix from value like "8+", "200+", "95%"
-                  const match = stat.value.match(/^(\d+)(.*)$/);
-                  const number = match ? parseInt(match[1]) : 10;
-                  const suffix = match ? match[2] : "+";
-
-                  return (
-                    <div key={i} className="group relative">
-                      {/* Hover glow effect */}
-                      <div className={`absolute -inset-2 bg-gradient-to-r ${stat.gradient} rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl`}></div>
-                      
-                      {/* Main card */}
-                      <div className="relative bg-white/90 backdrop-blur-sm rounded-3xl p-8 border border-white/50 hover:border-gold/30 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group">
-                        {/* Icon with advanced styling */}
-                        <div className={`relative inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br ${stat.gradient} rounded-2xl mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
-                          <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d={stat.icon} />
-                          </svg>
-                          {/* Micro accent */}
-                          <div className="absolute -top-1 -right-1 w-4 h-4 bg-gold rounded-full border-2 border-white animate-pulse"></div>
-                        </div>
-
-                        {/* Counter with enhanced typography */}
-                        <div className="mb-4">
-                          <StatsCounter
-                            end={number}
-                            suffix={suffix}
-                            label=""
-                            className="text-5xl lg:text-6xl font-bold text-navy mb-2 leading-none"
-                          />
-                        </div>
-
-                        {/* Label with modern styling */}
-                        <div className="relative">
-                          <p className="text-sm font-bold uppercase tracking-wider text-slate mb-2">
-                            {stat.label}
-                          </p>
-                          <div className="w-12 h-[2px] bg-gradient-to-r from-gold to-transparent rounded-full"></div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                });
-              })()}
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
+      {/* Help Topics Section */}
+      {homePageData?.helpTopicsSection && (
+        <HelpTopicsSection
+          badge={homePageData.helpTopicsSection.badge}
+          title={homePageData.helpTopicsSection.title}
+          description={homePageData.helpTopicsSection.description}
+          topics={homePageData.helpTopicsSection.topics}
+          bottomText={homePageData.helpTopicsSection.bottomText}
+        />
+      )}
 
       {/* Ultra-Modern Services Showcase */}
       {services.length > 0 && (
