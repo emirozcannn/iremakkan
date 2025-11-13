@@ -20,6 +20,7 @@ interface Page {
   aboutContent?: PortableTextBlock[];
   profileImage?: SanityImage;
   officeImage?: SanityImage;
+  environmentDescription?: string;
   infoCards?: Array<{
     icon?: string;
     title?: string;
@@ -73,6 +74,7 @@ async function getAboutPage(): Promise<Page | null> {
         aboutContent,
         profileImage,
         officeImage,
+        environmentDescription,
         infoCards[]{icon,title,description},
         educationSection{buttonText,title},
         education[]{degree,institution,year,description},
@@ -244,39 +246,7 @@ export default async function AboutPage() {
     certificatesButton: "EĞİTİM & SERTİFİKALAR",
   };
 
-  const defaultInfoCards = [
-    {
-      icon: "🎓",
-      title: "Eğitim & Sertifikalar",
-      description: "Akademik alt yapı ve sürekli gelişim",
-    },
-    {
-      icon: "💼",
-      title: "Deneyim",
-      description: "Yıllarca süren uzmanlık pratiği",
-    },
-    {
-      icon: "💡",
-      title: "Danışmanlık Yaklaşımım",
-      description: "Kişiye özel terapötik felsefe",
-    },
-  ];
-
-  const defaultStats = {
-    experience: "3+",
-    sessions: "100+",
-    satisfaction: "98%",
-    privacy: "100%",
-  };
-
   const labels = page?.labels || defaultLabels;
-  const infoCards = page?.infoCards && page.infoCards.length > 0 ? page.infoCards : defaultInfoCards;
-  const stats = page?.stats && page.stats.length > 0 ? page.stats : [
-    { number: defaultStats.experience, label: 'Yıl Deneyim', icon: '📅' },
-    { number: defaultStats.sessions, label: 'Başarılı Görüşme', icon: '💬' },
-    { number: defaultStats.satisfaction, label: 'Memnuniyet', icon: '⭐' },
-    { number: defaultStats.privacy, label: 'Gizlilik', icon: '🔒' },
-  ];
 
   // Eğer Sanity'den içerik gelmezse placeholder göster
   if (!page || !page.aboutContent) {
@@ -354,21 +324,7 @@ export default async function AboutPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-16">
-              {infoCards.map((item, index) => (
-                <div 
-                  key={index}
-                  className="group relative p-6 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/25 shadow-xl hover:shadow-gold/10 transition-all duration-500 hover:scale-105"
-                >
-                  <div className="absolute -inset-1 bg-gradient-to-br from-gold/10 to-teal/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-lg"></div>
-                  <div className="relative text-center">
-                    <div className="text-3xl mb-3">{item.icon}</div>
-                    <div className="text-lg font-bold text-navy mb-2">{item.title}</div>
-                    <div className="text-navy/60 text-sm">{item.description}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
+
           </div>
         </div>
       </div>
@@ -450,25 +406,7 @@ export default async function AboutPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {infoCards.map((item, index) => (
-              <div 
-                key={index}
-                className="group relative p-8 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/25 shadow-xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105"
-              >
-                <div className={`absolute -inset-1 bg-gradient-to-br ${
-                  index === 0 ? 'from-gold/20 to-gold/10' :
-                  index === 1 ? 'from-teal/20 to-teal/10' :
-                  'from-gold/15 to-teal/15'
-                } rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-lg`}></div>
-                <div className="relative text-center">
-                  <div className="text-4xl mb-4">{item.icon}</div>
-                  <div className="text-xl font-bold text-navy mb-3 font-display">{item.title}</div>
-                  <div className="text-navy/60 leading-relaxed">{item.description}</div>
-                </div>
-              </div>
-            ))}
-          </div>
+
         </div>
       </div>
 
@@ -556,23 +494,7 @@ export default async function AboutPage() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 gap-6">
-                {stats.map((stat, index) => (
-                  <div
-                    key={index}
-                    className="group relative p-6 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/25 shadow-xl hover:shadow-gold/10 transition-all duration-500 hover:scale-105"
-                  >
-                    <div className="absolute -inset-1 bg-gradient-to-br from-gold/10 to-teal/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-lg"></div>
-                    <div className="relative text-center">
-                      <div className="text-2xl mb-2">{stat.icon}</div>
-                      <div className="text-3xl font-bold text-navy mb-1 font-display">
-                        {stat.number}
-                      </div>
-                      <div className="text-navy/60 text-sm">{stat.label}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+
             </div>
           </div>
         </div>
@@ -595,6 +517,11 @@ export default async function AboutPage() {
           <h2 className="text-3xl md:text-4xl font-bold text-navy font-display">
             Güvenli ve <span className="text-gradient-gold">Huzurlu Mekan</span>
           </h2>
+          {page.environmentDescription && (
+            <p className="text-gray-600 text-lg leading-relaxed mt-6 max-w-3xl mx-auto text-center">
+              {page.environmentDescription}
+            </p>
+          )}
         </div>
 
         <div className="group relative">

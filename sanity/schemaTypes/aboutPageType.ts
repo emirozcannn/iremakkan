@@ -55,6 +55,14 @@ export const aboutPageType = defineType({
       fields: [{ name: 'alt', type: 'string', title: 'Alternatif Metin' }],
       description: 'Danışmanlık ortamınızı gösteren fotoğraf (isteğe bağlı)'
     }),
+    defineField({
+      name: 'environmentDescription',
+      title: 'Güvenli Mekan Açıklaması',
+      type: 'text',
+      rows: 3,
+      description: '"Güvenli ve Huzurlu Mekan" başlığı altında gösterilecek açıklama',
+      initialValue: 'Danışmanlık sürecimizde size özel, gizli ve güvenli bir alan sunuyorum. Rahat hissedeceğiniz bu ortamda, kendinizi özgürce ifade edebilir ve iyileşme yolculuğunuza odaklanabilirsiniz.'
+    }),
 
     // 📝 Hakkımda İçeriği
     defineField({

@@ -16,11 +16,7 @@ interface SanityImage {
   alt?: string;
 }
 
-interface StatItem {
-  icon: string;
-  number: string;
-  label: string;
-}
+
 
 interface Service {
   title: string;
@@ -35,7 +31,6 @@ interface ServicesPageData {
   heroTitle?: string;
   title?: string;
   heroDescription?: string;
-  stats?: StatItem[];
   sectionTitle?: string;
   sectionSubtitle?: string;
   ctaTitle?: string;
@@ -53,7 +48,6 @@ async function getServicesPageData(): Promise<ServicesPageData> {
         heroTitle,
         title,
         heroDescription,
-        stats,
         sectionTitle,
         sectionSubtitle,
         ctaTitle,
@@ -159,11 +153,6 @@ export default async function ServicesPage() {
   const heroTitle = pageData.heroTitle || "Profesyonel Danışmanlık";
   const title = pageData.title || "Size Özel **Destek Programları**";
   const heroDescription = pageData.heroDescription || "Bireysel, çift ve aile danışmanlığı ile yaşam kalitenizi artırın";
-  const stats = pageData.stats || [
-    { icon: "👥", number: "500+", label: "Başarılı Danışmanlık" },
-    { icon: "⭐", number: "8+", label: "Yıllık Deneyim" },
-    { icon: "💎", number: "98%", label: "Memnuniyet Oranı" }
-  ];
   const sectionTitle = pageData.sectionTitle || "Hayatınızı **Dönüştüren** Programlar";
   const ctaTitle = pageData.ctaTitle || "Kişiye Özel Danışmanlığa **İhtiyacınız mı Var?**";
   const ctaDescription = pageData.ctaDescription || "Size en uygun hizmeti birlikte belirleyelim ve yaşam kalitenizi artırmanın ilk adımını atalım.";
@@ -245,22 +234,7 @@ export default async function ServicesPage() {
             </p>
           </div>
 
-          {/* Premium statistics */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            {stats.map((stat, index) => (
-              <div 
-                key={index}
-                className="group relative p-8 rounded-3xl bg-white/20 backdrop-blur-xl border border-white/30 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105"
-              >
-                <div className="absolute -inset-1 bg-gradient-to-br from-gold/20 to-teal/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-lg"></div>
-                <div className="relative text-center">
-                  <div className="text-4xl mb-2">{stat.icon}</div>
-                  <div className="text-3xl md:text-4xl font-bold text-navy mb-2 font-display">{stat.number}</div>
-                  <div className="text-navy/60 font-medium">{stat.label}</div>
-                </div>
-              </div>
-            ))}
-          </div>
+
         </div>
       </div>
 

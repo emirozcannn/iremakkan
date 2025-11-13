@@ -31,11 +31,6 @@ interface Post {
 interface BlogPageData {
   heroTitle?: string;
   heroDescription?: string;
-  features?: {
-    icon: string;
-    title: string;
-    desc: string;
-  }[];
   categorySectionTitle?: string;
   seoTitle?: string;
   seoDescription?: string;
@@ -82,7 +77,6 @@ async function getBlogPageData(): Promise<BlogPageData | null> {
     const query = `*[_type == "blogPage"][0]{
       heroTitle,
       heroDescription,
-      features,
       categorySectionTitle,
       seoTitle,
       seoDescription
@@ -213,20 +207,7 @@ export default async function BlogPage({ searchParams }: { searchParams: Promise
             </p>
           </div>
 
-          {/* DEĞİŞİKLİK: Sabit kartlar yerine Sanity'den gelen `features` verisini map'liyoruz. */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {(pageData?.features || []).map((item, index) => (
-              // KARTLARINIZIN TASARIMI OLDUĞU GİBİ KORUNUYOR.
-              <div key={index} className="group relative p-6 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/25 shadow-xl hover:shadow-gold/10 transition-all duration-500 hover:scale-105">
-                <div className="absolute -inset-1 bg-gradient-to-br from-gold/10 to-teal/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-lg"></div>
-                <div className="relative text-center">
-                  <div className="text-3xl mb-3">{item.icon}</div>
-                  <div className="text-lg font-bold text-navy mb-2">{item.title}</div>
-                  <div className="text-navy/60 text-sm">{item.desc}</div>
-                </div>
-              </div>
-            ))}
-          </div>
+
         </div>
       </div>
       

@@ -11,6 +11,7 @@ async function getSettings() {
         phoneNumber,
         email,
         officeAddress,
+        locationInfo,
         socialLinks,
         counselor {
           name,

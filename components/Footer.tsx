@@ -5,6 +5,11 @@ interface FooterProps {
     phoneNumber?: string
     email?: string
     officeAddress?: string
+    locationInfo?: {
+      city?: string
+      district?: string
+      googleMapsUrl?: string
+    }
     socialLinks?: {
       instagram?: string
       linkedin?: string
@@ -150,6 +155,46 @@ export default function Footer({ settings }: FooterProps) {
                     </div>
                   </div>
                 </a>
+              )}
+
+              {settings?.officeAddress && (
+                <div className="block p-4 bg-white/5 border border-white/10 rounded-xl group">
+                  <div className="flex items-center justify-center gap-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-emerald/40 to-emerald/70 rounded-xl flex items-center justify-center">
+                      <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-white/95 font-semibold text-sm">{settings.officeAddress}</p>
+                      {settings.locationInfo && (
+                        <p className="text-white/80 text-xs mt-1">
+                          {settings.locationInfo.city} / {settings.locationInfo.district}
+                        </p>
+                      )}
+                      <p className="text-white/60 text-xs">Ofis Adresi</p>
+                    </div>
+                  </div>
+                  
+                  {/* Harita butonu */}
+                  <div className="mt-3 pt-3 border-t border-white/10">
+                    <a
+                      href={
+                        settings.locationInfo?.googleMapsUrl || 
+                        `https://maps.google.com/?q=${encodeURIComponent(settings.officeAddress)}`
+                      }
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-gradient-to-r from-emerald/20 to-emerald/30 hover:from-emerald/30 hover:to-emerald/40 border border-emerald/30 hover:border-emerald/50 rounded-lg transition-all duration-300 group/map"
+                    >
+                      <svg className="w-4 h-4 text-emerald-400 group-hover/map:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                      </svg>
+                      <span className="text-emerald-400 text-sm font-medium">Haritada Gör</span>
+                    </a>
+                  </div>
+                </div>
               )}
             </div>
           </div>

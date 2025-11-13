@@ -25,6 +25,31 @@ export const settingsType = defineType({
       type: 'text',
     }),
     defineField({
+      name: 'locationInfo',
+      title: 'Konum Bilgileri',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'city',
+          title: 'Şehir',
+          type: 'string',
+          initialValue: 'Tekirdağ',
+        }),
+        defineField({
+          name: 'district',
+          title: 'İlçe',
+          type: 'string',
+          initialValue: 'Süleymanpaşa',
+        }),
+        defineField({
+          name: 'googleMapsUrl',
+          title: 'Google Maps URL',
+          type: 'url',
+          description: 'Google Maps\'ten aldığınız konumun direkt linkini buraya yapıştırın',
+        }),
+      ],
+    }),
+    defineField({
       name: 'socialLinks',
       title: 'Sosyal Medya Linkleri',
       type: 'object',

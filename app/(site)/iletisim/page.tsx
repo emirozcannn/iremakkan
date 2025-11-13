@@ -19,11 +19,7 @@ interface ContactPageData {
   subtitle?: string;
   heroDescription?: string;
   heroHighlight?: string;
-  promiseCards?: Array<{
-    icon?: string;
-    title?: string;
-    description?: string;
-  }>;
+
   formTitle?: string;
   formSubtitle?: string;
   infoTitle?: string;
@@ -64,7 +60,6 @@ async function getContactPageData(): Promise<ContactPageData | null> {
         subtitle,
         heroDescription,
         heroHighlight,
-        promiseCards,
         formTitle,
         formSubtitle,
         infoTitle,
@@ -122,16 +117,7 @@ const HighlightedText = ({ text }: { text: string | undefined }) => {
 export default async function ContactPage() {
   const [settings, pageData] = await Promise.all([getSettings(), getContactPageData()]);
 
-  // Varsayılan değerler
-  const defaultPromiseCards = [
-    { icon: "🔒", title: "Gizlilik Garantisi", description: "Tüm bilgileriniz güvende" },
-    { icon: "⚡", title: "Hızlı Yanıt", description: "24 saat içinde dönüş" },
-    { icon: "👤", title: "Kişiye Özel", description: "Size özel çözümler" }
-  ];
 
-  const promiseCards = pageData?.promiseCards && pageData.promiseCards.length > 0 
-    ? pageData.promiseCards 
-    : defaultPromiseCards;
 
   return (
     <main className="min-h-screen relative overflow-hidden">
@@ -245,22 +231,7 @@ export default async function ContactPage() {
             )}
           </div>
 
-          {/* Contact promise cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {promiseCards.map((item, index) => (
-              <div 
-                key={index}
-                className="group relative p-6 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/25 shadow-xl hover:shadow-gold/10 transition-all duration-500 hover:scale-105"
-              >
-                <div className="absolute -inset-1 bg-gradient-to-br from-gold/10 to-teal/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-lg"></div>
-                <div className="relative text-center">
-                  <div className="text-3xl mb-3">{item.icon}</div>
-                  <div className="text-lg font-bold text-navy mb-2">{item.title}</div>
-                  <div className="text-navy/60 text-sm">{item.description}</div>
-                </div>
-              </div>
-            ))}
-          </div>
+
         </div>
       </section>
 
