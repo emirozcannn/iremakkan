@@ -261,17 +261,17 @@ export const homePageType = defineType({
                   description: 'Kartın vurgu rengi (örn: blue, green, purple, pink, orange)',
                   options: {
                     list: [
-                      { title: 'Altın - Gold', value: 'gold' },
-                      { title: 'Teal - Teal', value: 'teal' },
-                      { title: 'Lacivert - Navy', value: 'navy' },
-                      { title: 'Gül - Rose', value: 'rose' },
-                      { title: 'İnci - Pearl', value: 'pearl' },
-                      { title: 'Mor - Purple', value: 'purple' },
-                      { title: 'Gri - Slate', value: 'slate' },
-                      { title: 'Fildişi - Ivory', value: 'ivory' }
+                      { title: 'Slate - Gri', value: 'slate' },
+                      { title: 'Stone - Taş', value: 'stone' },
+                      { title: 'Zinc - Çinko', value: 'zinc' },
+                      { title: 'Neutral - Nötr', value: 'neutral' },
+                      { title: 'Emerald - Zümrüt', value: 'emerald' },
+                      { title: 'Blue - Mavi', value: 'blue' },
+                      { title: 'Violet - Mor', value: 'violet' },
+                      { title: 'Rose - Gül', value: 'rose' }
                     ]
                   },
-                  initialValue: 'gold'
+                  initialValue: 'slate'
                 }),
                 defineField({
                   name: 'symptoms',
@@ -299,60 +299,60 @@ export const homePageType = defineType({
           validation: (Rule) => Rule.min(8).max(8).error('Tam 8 konu olmalıdır (kompakt tasarım için)'),
           initialValue: [
             {
-              icon: '🧠',
+              icon: '🌊',
               title: 'Depresyon ve Kaygı Bozuklukları',
-              description: 'Günlük yaşamınızı etkileyen depresif belirtiler, kaygı durumları ve panik atak sorunlarında destek sağlıyorum.',
-              accentColor: 'navy',
-              symptoms: ['Sürekli üzgünlük hali', 'Motivasyon kaybı', 'Kaygı nöbetleri', 'Panik atak']
+              description: 'Günlük yaşamınızı etkileyen depresif belirtiler, kaygı durumları ve panik atak sorunlarında profesyonel destek sağlıyorum. Birlikte duygusal dengenizi yeniden kuruyoruz.',
+              accentColor: 'blue',
+              symptoms: ['Sürekli üzgünlük hali', 'Motivasyon kaybı', 'Kaygı nöbetleri', 'Panik atak', 'Umutsuzluk']
             },
             {
               icon: '💚',
               title: 'İlişki ve İletişim Sorunları',
-              description: 'Çift terapisi, aile içi iletişim problemleri ve kişilerarası ilişki zorluklarında rehberlik ediyorum.',
-              accentColor: 'teal',
-              symptoms: ['İletişim kopukluğu', 'Çift uyumsuzluğu', 'Aile içi çatışmalar', 'Güven problemleri']
+              description: 'Çift terapisi, aile içi iletişim problemleri ve kişilerarası ilişki zorluklarında rehberlik ediyorum. Sağlıklı iletişim becerilerinizi geliştiriyoruz.',
+              accentColor: 'emerald',
+              symptoms: ['İletişim kopukluğu', 'Çift uyumsuzluğu', 'Aile içi çatışmalar', 'Güven problemleri', 'Yakınlık korkusu']
             },
             {
               icon: '⚡',
               title: 'Travma ve Stres Yönetimi',
-              description: 'Travma sonrası stres, yas süreci ve yaşamsal değişimlere uyum konularında destek veriyorum.',
-              accentColor: 'purple',
-              symptoms: ['Travma sonrası stres', 'Kayıp ve yas', 'Kronik stres', 'Uyum problemleri']
+              description: 'Travma sonrası stres, yas süreci ve yaşamsal değişimlere uyum konularında özel destek veriyorum. İyileşme yolculuğunuzda yanınızdayım.',
+              accentColor: 'violet',
+              symptoms: ['Travma sonrası stres', 'Kayıp ve yas', 'Kronik stres', 'Uyum problemleri', 'Geçmiş yaşantılar']
             },
             {
-              icon: '🌟',
+              icon: '�',
               title: 'Benlik Saygısı ve Özgüven',
-              description: 'Özgüven eksikliği, kendini kabul etme ve kişisel gelişim konularında yol gösteriyorum.',
+              description: 'Özgüven eksikliği, kendini kabul etme ve kişisel gelişim konularında yol gösteriyorum. İç gücünüzü keşfetmenize yardımcı oluyorum.',
               accentColor: 'rose',
-              symptoms: ['Düşük özgüven', 'Kendini değersiz hissetme', 'Sosyal çekingenlik', 'Karar verme zorluğu']
+              symptoms: ['Düşük özgüven', 'Kendini değersiz hissetme', 'Sosyal çekingenlik', 'Karar verme zorluğu', 'Kendini suçlama']
             },
             {
-              icon: '🔥',
+              icon: '🌀',
               title: 'Öfke ve Duygu Yönetimi',
-              description: 'Öfke kontrolü, saldırganlık problemleri ve duygusal düzenleme konularında çalışıyoruz.',
+              description: 'Öfke kontrolü, saldırganlık problemleri ve duygusal düzenleme konularında birlikte çalışıyoruz. Duygularınızı sağlıklı şekilde ifade etmeyi öğreniyoruz.',
               accentColor: 'slate',
-              symptoms: ['Öfke patlamaları', 'Agresif davranışlar', 'Duygusal dengesizlik', 'İmpulsivite']
+              symptoms: ['Öfke patlamaları', 'Agresif davranışlar', 'Duygusal dengesizlik', 'İmpulsivite', 'Sabırsızlık']
             },
             {
-              icon: '👥',
+              icon: '🤝',
               title: 'Sosyal Anksiyete ve Fobi',
-              description: 'Sosyal ortamlarda yaşanan kaygı, fobiler ve toplumsal durum korkularında rehberlik sağlıyorum.',
-              accentColor: 'pearl',
-              symptoms: ['Sosyal kaygı', 'Konuşma korkusu', 'Topluluk fobisi', 'Performans kaygısı']
+              description: 'Sosyal ortamlarda yaşanan kaygı, fobiler ve toplumsal durum korkularında rehberlik sağlıyorum. Sosyal becerilerinizi güçlendiriyoruz.',
+              accentColor: 'stone',
+              symptoms: ['Sosyal kaygı', 'Konuşma korkusu', 'Topluluk fobisi', 'Performans kaygısı', 'Yargılanma korkusu']
             },
             {
-              icon: '🌱',
+              icon: '✨',
               title: 'Kişisel Gelişim ve Uyum',
-              description: 'Yaşam değişiklikleri, yeni süreçlere uyum ve kişisel potansiyelinizi keşfetme konularında destek veriyorum.',
-              accentColor: 'gold',
-              symptoms: ['Yaşam geçişleri', 'Kariyer değişimi', 'İlişki değişiklikleri', 'Kişisel hedefler']
+              description: 'Yaşam değişiklikleri, yeni süreçlere uyum ve kişisel potansiyelinizi keşfetme konularında destek veriyorum. Hedeflerinize ulaşmanızda rehberim.',
+              accentColor: 'zinc',
+              symptoms: ['Yaşam geçişleri', 'Kariyer değişimi', 'İlişki değişiklikleri', 'Kişisel hedefler', 'Yaşam amacı']
             },
             {
-              icon: '💤',
+              icon: '🌙',
               title: 'Uyku ve Yaşam Düzeni',
-              description: 'Uyku bozuklukları, yaşam rutini problemleri ve sağlıklı alışkanlıklar konusunda yol gösterim.',
-              accentColor: 'ivory',
-              symptoms: ['Uykusuzluk', 'Gece kaygısı', 'Düzensiz yaşam', 'Kronik yorgunluk']
+              description: 'Uyku bozuklukları, yaşam rutini problemleri ve sağlıklı alışkanlıklar konusunda yol gösteriyorum. Dengeli bir yaşam rutini oluşturuyoruz.',
+              accentColor: 'neutral',
+              symptoms: ['Uykusuzluk', 'Gece kaygısı', 'Düzensiz yaşam', 'Kronik yorgunluk', 'Gündüz uykusu']
             }
           ]
         }),
