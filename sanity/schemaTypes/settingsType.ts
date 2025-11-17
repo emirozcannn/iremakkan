@@ -123,7 +123,7 @@ export const settingsType = defineType({
           title: 'Sertifikalar/Eğitimler',
           type: 'array',
           of: [{type: 'string'}],
-          description: 'Örn: "Bilişsel Davranışçı Terapi", "EMDR", "Aile Danışmanlığı"',
+          description: 'Örn: "Bilişsel Davranışçı Danışmanlık", "EMDR", "Aile Danışmanlığı"',
         }),
       ],
     }),

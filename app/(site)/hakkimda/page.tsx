@@ -310,9 +310,9 @@ export default async function AboutPage() {
               </div>
             </div>
 
-            <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-navy font-display leading-[0.9] mb-12">
+            <h2 className="text-6xl md:text-7xl lg:text-8xl font-bold text-navy font-display leading-[0.9] mb-12">
               {page?.heroTitle || "Hakkımda"}
-            </h1>
+            </h2>
 
             <div className="max-w-3xl mx-auto">
               <div className="relative p-8 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/25 shadow-2xl">
@@ -501,56 +501,7 @@ export default async function AboutPage() {
       )}
 
       {/* Office/Environment Image Section */}
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-8 py-20">
-        <div className="text-center mb-12">
-          <div className="relative inline-block mb-6">
-            <div className="absolute -inset-2 bg-gradient-to-r from-teal/20 to-gold/20 rounded-2xl blur-lg"></div>
-            <div className="relative inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-white/10 backdrop-blur-xl border border-teal/25 shadow-xl">
-              <svg className="w-5 h-5 text-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-              </svg>
-              <span className="text-navy font-bold uppercase tracking-wide text-sm">
-                {labels.environmentButton}
-              </span>
-            </div>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-navy font-display">
-            Güvenli ve <span className="text-gradient-gold">Huzurlu Mekan</span>
-          </h2>
-          {page.environmentDescription && (
-            <p className="text-gray-600 text-lg leading-relaxed mt-6 max-w-3xl mx-auto text-center">
-              {page.environmentDescription}
-            </p>
-          )}
-        </div>
-
-        <div className="group relative">
-          <div className="absolute -inset-4 bg-gradient-to-r from-teal/25 via-gold/20 to-teal/25 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-2xl"></div>
-          <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[21/9]">
-            <div className="absolute inset-0 bg-gradient-to-t from-navy/30 via-transparent to-transparent z-10"></div>
-            {page.officeImage ? (
-              <Image
-                src={urlFor(page.officeImage).width(1400).height(600).url()}
-                alt={page.officeImage.alt || "Danışmanlık Ofisi"}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                sizes="100vw"
-              />
-            ) : (
-              <div className="absolute inset-0 bg-gradient-to-br from-ivory via-pearl to-stone flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-gold/30 to-teal/30 rounded-2xl flex items-center justify-center">
-                    <svg className="w-12 h-12 text-navy/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                    </svg>
-                  </div>
-                  <p className="text-navy/60 text-lg">Danışmanlık ortamı görseli yakında eklenecek</p>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+      
 
       {/* Education Section */}
       {page.education && page.education.length > 0 && (

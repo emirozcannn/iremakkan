@@ -230,9 +230,9 @@ export default function BeckAnxietyTestPage() {
             className="max-w-2xl mx-auto text-center"
           >
             <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-gold/20 p-12">
-              <h2 className="text-3xl font-display font-bold text-navy mb-4">Test Sonuçları</h2>
-              <p className="text-lg text-navy/70 mb-2">Toplam Puanınız: <span className="font-semibold text-navy">{totalScore}</span></p>
-              <p className="text-lg text-navy/70 mb-6">Değerlendirme: <span className="font-semibold text-gold">{interpretation}</span></p>
+              <h2 className="text-3xl font-display font-bold text-navy mb-4">Testinizi sonuçlarınız alınmıştır.</h2>
+              
+              <p className="text-lg text-navy/70 mb-6">Sonuçlarınız en kısa sürede size e-posta ile bildirilecektir. </p>
 
               <div className="text-left max-w-md mx-auto">
                 <h3 className="font-semibold text-navy mb-3">İletişim Bilgileri</h3>

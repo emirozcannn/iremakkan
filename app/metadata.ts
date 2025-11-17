@@ -3,10 +3,10 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   metadataBase: new URL('https://iremakkan.com'),
   title: {
-    default: 'İrem Akkan | Psikolojik Danışman - Bireysel & Çift Terapisi',
+    default: 'İrem Akkan | Psikolojik Danışman - Bireysel & Çift Danışmanlığı',
     template: '%s | İrem Akkan',
   },
-  description: 'Psikolojik danışmanlık hizmeti. 8+ yıl deneyim ile bireysel terapi, çift danışmanlığı ve aile terapisi. Online ve yüz yüze görüşme seçenekleri.',
+  description: 'Psikolojik danışmanlık hizmeti. 8+ yıl deneyim ile bireysel danışmanlık terapi, çift danışmanlığı ve aile danışmanlığı. Online ve yüz yüze görüşme seçenekleri.',
   keywords: [
     'psikolojik danışman',
     'psikolog',
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     url: 'https://iremakkan.com',
     siteName: 'İrem Akkan Psikolojik Danışmanlık',
     title: 'İrem Akkan | Profesyonel Psikolojik Danışman',
-    description: 'Güvenli ve empatik psikolojik danışmanlık hizmeti. Bireysel, çift ve aile terapisi ile mental sağlığınızı destekliyoruz.',
+    description: 'Güvenli ve empatik psikolojik danışmanlık hizmeti. Bireysel, çift ve aile danışmanlığı ile mental sağlığınızı destekliyoruz.',
     images: [
       {
         url: '/og-image.png',

@@ -308,7 +308,7 @@ export const homePageType = defineType({
             {
               icon: '💚',
               title: 'İlişki ve İletişim Sorunları',
-              description: 'Çift terapisi, aile içi iletişim problemleri ve kişilerarası ilişki zorluklarında rehberlik ediyorum. Sağlıklı iletişim becerilerinizi geliştiriyoruz.',
+              description: 'Çift Danışmanlığı, aile içi iletişim problemleri ve kişilerarası ilişki zorluklarında rehberlik ediyorum. Sağlıklı iletişim becerilerinizi geliştiriyoruz.',
               accentColor: 'emerald',
               symptoms: ['İletişim kopukluğu', 'Çift uyumsuzluğu', 'Aile içi çatışmalar', 'Güven problemleri', 'Yakınlık korkusu']
             },
@@ -361,7 +361,7 @@ export const homePageType = defineType({
           title: 'Alt Metin/Çağrı',
           type: 'text',
           rows: 2,
-          initialValue: 'Yukarıdaki konulardan herhangi biriyle ilgili destek almak istiyorsanız, birlikte çalışabiliriz. Her birey özeldir ve size özel bir terapi planı oluştururuz.'
+          initialValue: 'Yukarıdaki konulardan herhangi biriyle ilgili destek almak istiyorsanız, birlikte çalışabiliriz. Her birey özeldir ve size özel bir danışmanlık planı oluştururuz.'
         })
       ]
     }),

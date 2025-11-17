@@ -484,7 +484,7 @@ export default async function Home() {
                 <div className="relative inline-flex items-center gap-4 px-8 py-4 rounded-full bg-white/10 backdrop-blur-xl border border-gold/30 shadow-2xl">
                   <div className="w-3 h-3 bg-gold rounded-full animate-pulse"></div>
                   <span className="text-white text-sm font-bold uppercase tracking-[0.2em]">
-                    Hizmetlerimiz
+                    Hizmetlerim
                   </span>
                   <div className="w-3 h-3 bg-teal-light rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
                 </div>

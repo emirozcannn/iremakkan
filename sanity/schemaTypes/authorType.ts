@@ -58,7 +58,7 @@ export const authorType = defineType({
       title: 'Uzmanlık Alanları',
       type: 'array',
       of: [{type: 'string'}],
-      description: 'Örn: Anksiyete Tedavisi, Çift Terapisi, Depresyon',
+      description: 'Örn: Anksiyete Danışmanlığı, Çift Danışmanlığı, Depresyon',
     }),
     defineField({
       name: 'socialMedia',

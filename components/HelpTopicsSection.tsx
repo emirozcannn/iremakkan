@@ -307,7 +307,7 @@ function ProfessionalFlipCard({ topic, index }: { topic: HelpTopic; index: numbe
 export default function HelpTopicsSection({
   badge = "Uzmanlık Alanları",
   title = "Profesyonel **Psikolojik Destek**",
-  description = "Kanıta dayalı terapi yaklaşımları ile güvenli ve etkili bir iyileşme süreci.",
+  description = "Danışmanlık ve Keşif sürecinizde yanınızda oluyorum.",
   topics = [],
   bottomText
 }: HelpTopicsSectionProps) {

@@ -108,7 +108,7 @@ export default function KVKKPage() {
                   <ul className="text-gray-700 space-y-1">
                     <li>• Ruh sağlığı durumu</li>
                     <li>• Psikolojik test sonuçları</li>
-                    <li>• Terapi kayıtları</li>
+                    <li>• Danışmanlık kayıtları</li>
                   </ul>
                 </div>
               </div>

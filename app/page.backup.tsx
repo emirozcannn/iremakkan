@@ -757,7 +757,7 @@ export default async function Home() {
             url: "https://iremakkan.com",
             logo: "https://iremakkan.com/logo.png",
             image: "https://iremakkan.com/og-image.png",
-            description: "Profesyonel psikolojik danışmanlık hizmeti. Bireysel terapi, çift danışmanlığı ve aile terapisi.",
+            description: "Profesyonel psikolojik danışmanlık hizmeti. Bireysel Danışmanlık, çift danışmanlığı ve aile danışmanlığı.",
             telephone: "+90-555-123-4567",
             email: "psk.dan.iremakkan@gmail.com",
             address: {
@@ -779,7 +779,7 @@ export default async function Home() {
                   "@type": "Offer",
                   itemOffered: {
                     "@type": "Service",
-                    name: "Bireysel Terapi",
+                    name: "Bireysel Danışmanlık",
                     description: "Kişisel gelişim ve mental sağlık için bireysel psikoterapi seansları",
                   },
                 },
@@ -796,7 +796,7 @@ export default async function Home() {
                   itemOffered: {
                     "@type": "Service",
                     name: "Aile Danışmanlığı",
-                    description: "Aile içi sorunlar ve ilişki dinamikleri için aile terapisi",
+                    description: "Aile içi sorunlar ve ilişki dinamikleri için aile Danışmanlık hizmetleri",
                   },
                 },
               ],

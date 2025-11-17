@@ -224,7 +224,7 @@ export default async function Home() {
                         <span className="text-navy font-medium text-sm">3+ Yıl Deneyim</span>
                       </div>
                       <div className="flex flex-wrap gap-2 justify-center">
-                        {["Bilişsel Davranışçı Terapi", "Çift Terapisi", "Travma Terapisi"].map((item, i) => (
+                        {["Bilişsel Davranışçı Danışmanlık", "Çift Danışmanlık", "Travma Danışmanlığı"].map((item, i) => (
                           <span key={i} className="px-4 py-2 rounded-full bg-teal/5 text-teal text-sm font-medium border border-teal/10">
                             {item}
                           </span>
