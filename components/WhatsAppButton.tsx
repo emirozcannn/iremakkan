@@ -40,6 +40,7 @@ export default function WhatsAppButton({
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
+      aria-label="WhatsApp ile iletişime geç"
       className={`
         group relative inline-flex items-center justify-center gap-3
         font-semibold rounded-2xl transition-all duration-300 

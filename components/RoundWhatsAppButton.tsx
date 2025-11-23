@@ -36,6 +36,7 @@ export default function RoundWhatsAppButton({
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
+      aria-label="WhatsApp ile danışmanlık talebi"
       className={`
         group relative inline-flex items-center justify-center
         bg-[#25d366] hover:bg-[#128c7e] text-white

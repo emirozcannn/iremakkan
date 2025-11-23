@@ -235,7 +235,7 @@ export default async function Home() {
           </div>
         </div>
 
-        <div className="relative z-20 mx-auto max-w-7xl px-6 lg:px-8 py-20 lg:py-32">
+        <div className="relative z-20 mx-auto max-w-7xl px-6 lg:px-8 py-16 lg:py-24">
           <AnimatedSection>
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               {/* Left: Counselor Card - Trust & Credibility */}
@@ -760,20 +760,36 @@ export default async function Home() {
             url: "https://iremakkan.com",
             logo: "https://iremakkan.com/logo.png",
             image: "https://iremakkan.com/og-image.png",
-            description: "Profesyonel psikolojik danışmanlık hizmeti. Bireysel terapi, çift danışmanlığı ve aile terapisi.",
+            description: "İzmir merkezli online psikolojik danışmanlık hizmeti. Bireysel terapi, çift danışmanlığı ve aile terapisi.",
             telephone: "+90-555-123-4567",
             email: "psk.dan.iremakkan@gmail.com",
             address: {
               "@type": "PostalAddress",
-              addressLocality: "Istanbul",
+              addressLocality: "İzmir",
+              addressRegion: "İzmir",
               addressCountry: "TR",
             },
-            areaServed: {
-              "@type": "Country",
-              name: "Turkey",
-            },
+            areaServed: [
+              {
+                "@type": "City",
+                name: "İzmir",
+              },
+              {
+                "@type": "Country",
+                name: "Turkey",
+              }
+            ],
             availableLanguage: ["tr", "en"],
             priceRange: "$$",
+            serviceType: "Online Psikolojik Danışmanlık",
+            knowsAbout: [
+              "Anksiyete Bozuklukları",
+              "Depresyon",
+              "Travma ve Stres",
+              "İlişki Sorunları",
+              "Kişisel Gelişim",
+              "Aile Terapisi"
+            ],
             hasOfferCatalog: {
               "@type": "OfferCatalog",
               name: "Psikolojik Danışmanlık Hizmetleri",

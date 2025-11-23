@@ -9,6 +9,7 @@ type ButtonProps = React.ComponentPropsWithoutRef<typeof motion.button> & {
   children: React.ReactNode
   icon?: React.ReactNode
   iconPosition?: 'left' | 'right'
+  ariaLabel?: string
 }
 
 export default function Button({
@@ -18,6 +19,7 @@ export default function Button({
   icon,
   iconPosition = 'right',
   className = '',
+  ariaLabel,
   ...props
 }: ButtonProps) {
   const baseStyles =
@@ -44,6 +46,7 @@ export default function Button({
   return (
     <motion.button
       type="button"
+      aria-label={ariaLabel || (typeof children === 'string' ? children : undefined)}
       whileHover={{ scale: variant === 'ghost' ? 1 : 1.03 }}
       whileTap={{ scale: 0.97 }}
       className={`${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}

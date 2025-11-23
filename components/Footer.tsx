@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 interface FooterProps {
   settings?: {
@@ -59,10 +60,13 @@ export default function Footer({ settings }: FooterProps) {
           <div className="relative inline-block group">
             {/* Logo */}
             <div className="relative mb-6">
-              <img
+              <Image
                 src="/footer-logo.png"
-                alt="İrem Akkan"
-                className="h-40 w-auto mx-auto group-hover:scale-105 transition-all duration-300 filter drop-shadow-lg"
+                alt="İrem Akkan - Psikolojik Danışman"
+                width={160}
+                height={160}
+                className="mx-auto group-hover:scale-105 transition-all duration-300 filter drop-shadow-lg"
+                priority
               />
             </div>
 

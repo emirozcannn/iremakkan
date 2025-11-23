@@ -171,7 +171,7 @@ export default async function ContactPage() {
       {/* Ultra-Modern Hero Section - İletişim Odaklı */}
       <section
         aria-labelledby="contact-heading"
-        className="relative py-32 overflow-hidden text-center"
+        className="relative py-20 overflow-hidden text-center"
       >
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
           {/* Premium contact badge */}

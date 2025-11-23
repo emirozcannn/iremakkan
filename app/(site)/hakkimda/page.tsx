@@ -19,21 +19,9 @@ interface Page {
   title?: string;
   aboutContent?: PortableTextBlock[];
   profileImage?: SanityImage;
-  officeImage?: SanityImage;
-  environmentDescription?: string;
-  infoCards?: Array<{
+  specializations?: Array<{
     icon?: string;
     title?: string;
-    description?: string;
-  }>;
-  educationSection?: {
-    buttonText?: string;
-    title?: string;
-  };
-  education?: Array<{
-    degree?: string;
-    institution?: string;
-    year?: string;
     description?: string;
   }>;
   certificates?: Array<{
@@ -47,20 +35,11 @@ interface Page {
   heroTitle?: string;
   heroSubtitle?: string;
   heroHighlight?: string;
-  heroDescription?: string;
-  stats?: Array<{
-    number?: string;
-    label?: string;
-    icon?: string;
-  }>;
   labels?: {
     introButton?: string;
     profileButton?: string;
-    environmentButton?: string;
-    detailsButton?: string;
     certificatesButton?: string;
   };
-  approach?: { title?: string; content?: PortableTextBlock[] };
 }
 
 async function getAboutPage(): Promise<Page | null> {
@@ -70,19 +49,12 @@ async function getAboutPage(): Promise<Page | null> {
         heroTitle,
         heroSubtitle,
         heroHighlight,
-        heroDescription,
         aboutContent,
         profileImage,
-        officeImage,
-        environmentDescription,
-        infoCards[]{icon,title,description},
-        educationSection{buttonText,title},
-        education[]{degree,institution,year,description},
+        specializations[]{icon,title,description},
         certificates[]{title,institution,year,image},
-        stats[]{number,label,icon},
-        approach{title,content},
         labels{
-          introButton,profileButton,environmentButton,detailsButton,certificatesButton
+          introButton,profileButton,certificatesButton
         },
         seoTitle,
         seoDescription
@@ -241,8 +213,6 @@ export default async function AboutPage() {
   const defaultLabels = {
     introButton: "BENİ TANIYIN",
     profileButton: "PROFİL",
-    environmentButton: "DANIŞMANLIK ORTAMI",
-    detailsButton: "DETAYLI BİLGİLER",
     certificatesButton: "EĞİTİM & SERTİFİKALAR",
   };
 
@@ -293,7 +263,7 @@ export default async function AboutPage() {
           </div>
         </div>
 
-        <div className="relative py-32 overflow-hidden">
+        <div className="relative py-20 overflow-hidden">
           <div className="relative z-10 mx-auto max-w-5xl px-6 lg:px-8 text-center">
             <div className="relative inline-block mb-12">
               <div className="absolute -inset-4 bg-gradient-to-r from-gold/30 to-teal/30 rounded-full blur-xl"></div>
@@ -373,7 +343,7 @@ export default async function AboutPage() {
       </div>
 
       {/* Hero Section */}
-      <div className="relative py-32 overflow-hidden">
+      <div className="relative py-20 overflow-hidden">
         <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-8 text-center">
           <div className="relative inline-block mb-12">
             <div className="absolute -inset-4 bg-gradient-to-r from-gold/30 to-teal/30 rounded-full blur-xl"></div>
@@ -412,7 +382,7 @@ export default async function AboutPage() {
 
       {/* Profile Image Section */}
       {page.profileImage && (
-        <div className="relative mx-auto max-w-6xl px-6 lg:px-8 py-20">
+        <div className="relative mx-auto max-w-6xl px-6 lg:px-8 py-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="group relative order-2 lg:order-1">
               <div className="absolute -inset-6 bg-gradient-to-br from-gold/30 via-teal/20 to-gold/30 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-2xl"></div>
@@ -488,131 +458,110 @@ export default async function AboutPage() {
                   })()}
                 </h2>
 
-                <p className="text-xl text-navy/80 leading-relaxed font-light">
-                  {page?.heroDescription ||
-                    "Her bireyin kendine özgü bir yolculuğu vardır. Profesyonel yaklaşımım ve yıllarca süren deneyimimle, sizin bu yolculuğunuzda güvenilir bir rehber olmak için buradayım."}
+                <p className="text-xl text-navy/80 leading-relaxed font-light mb-8">
+                  Her bireyin kendine özgü bir yolculuğu vardır. Profesyonel yaklaşımım ve yıllarca süren deneyimimle, sizin bu yolculuğunuzda güvenilir bir rehber olmak için buradayım.
                 </p>
+
+                {/* Detaylı İçerik - Fotoğrafın Yanında */}
+                {page.aboutContent && (
+                  <div className="prose prose-lg prose-navy max-w-none">
+                    <PortableText value={page.aboutContent} components={portableTextComponents} />
+                  </div>
+                )}
               </div>
-
-
             </div>
           </div>
         </div>
       )}
 
-      {/* Office/Environment Image Section */}
-      
-
-      {/* Education Section */}
-      {page.education && page.education.length > 0 && (
-        <div className="relative mx-auto max-w-6xl px-6 lg:px-8 py-20">
+      {/* Uzmanlık Alanları - Sol Sağ Tasarım */}
+      {page.specializations && page.specializations.length > 0 && (
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-8 py-20">
+          {/* Section Header */}
           <div className="text-center mb-16">
-            <div className="relative inline-block mb-6">
-              <div className="absolute -inset-2 bg-gradient-to-r from-gold/20 to-teal/20 rounded-2xl blur-lg"></div>
-              <div className="relative inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-white/10 backdrop-blur-xl border border-gold/25 shadow-xl">
-                <svg className="w-5 h-5 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+            <div className="relative inline-block mb-8">
+              <div className="absolute -inset-3 bg-gradient-to-r from-gold/25 to-teal/25 rounded-2xl blur-xl"></div>
+              <div className="relative inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-white/10 backdrop-blur-xl border border-gold/25 shadow-xl">
+                <svg className="w-6 h-6 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                <span className="text-navy font-bold uppercase tracking-wide text-sm">
-                  {page?.educationSection?.buttonText || "EĞİTİM BİLGİLERİ"}
-                </span>
+                <span className="text-navy font-bold uppercase tracking-wide text-sm">Uzmanlık Alanları</span>
               </div>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-navy font-display">
-              {(() => {
-                const parsed = parseHighlightedText(page?.educationSection?.title);
-                return (
-                  <>
-                    {parsed.normal || "Akademik"}{" "}
-                    <span className="text-gradient-gold">
-                      {parsed.highlighted || "Alt Yapı"}
-                    </span>
-                  </>
-                );
-              })()}
+            <h2 className="text-4xl md:text-5xl font-bold text-navy font-display">
+              Çalıştığım <span className="text-gradient-gold">Alanlar</span>
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {page.education.map((edu, index) => (
-              <div
-                key={index}
-                className="group relative p-8 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/25 shadow-xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105"
-              >
-                <div className={`absolute -inset-1 bg-gradient-to-br ${
-                  index % 2 === 0 ? 'from-gold/20 to-gold/10' : 'from-teal/20 to-teal/10'
-                } rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-lg`}></div>
-                <div className="relative">
-                  <div className="flex items-start gap-4 mb-4">
-                    <div className={`w-12 h-12 rounded-2xl ${
-                      index % 2 === 0 ? 'bg-gradient-to-br from-gold to-gold-light' : 'bg-gradient-to-br from-teal to-teal-dark'
-                    } flex items-center justify-center shadow-xl flex-shrink-0`}>
-                      <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 3L1 9L12 15L21 9V16H23V9L12 3ZM5 13.18V17.18L12 21L19 17.18V13.18L12 17L5 13.18Z" />
-                      </svg>
+          {/* Specializations - Left Right Layout */}
+          <div className="space-y-20">
+            {page.specializations.map((spec, index) => {
+              const isLeft = index % 2 === 0;
+              
+              return (
+                <div key={index} className="relative">
+                  {/* Connection Line */}
+                  {index < (page.specializations?.length || 0) - 1 && (
+                    <div className="absolute left-1/2 -translate-x-1/2 bottom-0 w-0.5 h-32 bg-gradient-to-b from-gold/30 to-transparent"></div>
+                  )}
+
+                  <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${!isLeft ? 'lg:flex-row-reverse' : ''}`}>
+                    {/* Icon Side */}
+                    <div className={`${isLeft ? 'lg:order-1 lg:text-right' : 'lg:order-2 lg:text-left'}`}>
+                      <div className={`inline-block ${isLeft ? 'lg:ml-auto' : 'lg:mr-auto'}`}>
+                        <div className="relative group">
+                          <div className="absolute -inset-6 bg-gradient-to-br from-gold/20 to-teal/20 rounded-full blur-2xl opacity-50 group-hover:opacity-100 transition-opacity duration-700"></div>
+                          <div className="relative w-32 h-32 bg-gradient-to-br from-gold/10 to-teal/10 rounded-full flex items-center justify-center border-4 border-white/50 shadow-2xl backdrop-blur-xl">
+                            <span className="text-6xl">{spec.icon}</span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex-1">
-                      <h3 className="text-xl font-bold text-navy mb-2 font-display">
-                        {edu.degree}
-                      </h3>
-                      <div className="flex items-center gap-2 mb-2">
-                        <svg className="w-4 h-4 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                        </svg>
-                        <span className="text-navy/80 font-medium">{edu.institution}</span>
+
+                    {/* Content Side */}
+                    <div className={`${isLeft ? 'lg:order-2' : 'lg:order-1'}`}>
+                      <div className="group relative">
+                        <div className="absolute -inset-4 bg-gradient-to-br from-gold/10 via-teal/5 to-gold/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-xl"></div>
+                        
+                        <div className="relative bg-white/15 backdrop-blur-xl border border-white/25 rounded-3xl p-8 lg:p-10 shadow-xl hover:shadow-2xl transition-all duration-500">
+                          {/* Decorative Corner Elements */}
+                          <div className={`absolute top-0 ${isLeft ? 'right-0' : 'left-0'} w-20 h-20 bg-gradient-to-br from-gold/20 to-transparent rounded-full blur-xl`}></div>
+                          <div className={`absolute bottom-0 ${isLeft ? 'left-0' : 'right-0'} w-16 h-16 bg-gradient-to-tr from-teal/20 to-transparent rounded-full blur-xl`}></div>
+                          
+                          <div className="relative">
+                            <div className="flex items-start gap-4 mb-4">
+                              <div className={`w-12 h-12 rounded-2xl ${
+                                index % 3 === 0 ? 'bg-gradient-to-br from-gold to-gold-light' : 
+                                index % 3 === 1 ? 'bg-gradient-to-br from-teal to-teal-dark' : 
+                                'bg-gradient-to-br from-emerald-400 to-emerald-600'
+                              } flex items-center justify-center shadow-lg flex-shrink-0`}>
+                                <span className="text-2xl">{spec.icon}</span>
+                              </div>
+                              <div className="flex-1">
+                                <h3 className="text-2xl md:text-3xl font-bold text-navy mb-4 font-display leading-tight">
+                                  {spec.title}
+                                </h3>
+                                <p className="text-navy/75 text-lg leading-relaxed">
+                                  {spec.description}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Decorative Number */}
+                          <div className="absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-br from-navy to-navy-light rounded-xl flex items-center justify-center shadow-xl">
+                            <span className="text-white font-bold text-lg">{String(index + 1).padStart(2, '0')}</span>
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-2 mb-3">
-                        <svg className="w-4 h-4 text-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        <span className="text-navy/60">{edu.year}</span>
-                      </div>
-                      {edu.description && (
-                        <p className="text-navy/70 text-sm leading-relaxed">
-                          {edu.description}
-                        </p>
-                      )}
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       )}
-
-      {/* Content Section */}
-      <div className="relative mx-auto max-w-5xl px-6 lg:px-8 pb-32">
-        <div className="group relative">
-          <div className="absolute -inset-6 bg-gradient-to-br from-white/20 via-gold/10 to-teal/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-2xl"></div>
-          
-          <div className="relative bg-white/15 backdrop-blur-xl border border-white/25 rounded-3xl p-12 lg:p-16 shadow-2xl">
-            <div className="relative mb-12 text-center">
-              <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-20 h-20 bg-gradient-to-br from-gold/30 to-teal/30 rounded-2xl rotate-45"></div>
-              
-              <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/10 backdrop-blur-xl border border-gold/25 shadow-xl mb-6">
-                <svg className="w-5 h-5 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                <span className="text-navy font-bold uppercase tracking-wide text-sm">
-                  {labels.detailsButton}
-                </span>
-              </div>
-              
-              <div className="w-32 h-1 bg-gradient-to-r from-gold via-teal to-gold rounded-full mx-auto"></div>
-            </div>
-
-            <div className="prose prose-lg prose-navy max-w-none">
-              <PortableText value={page.aboutContent} components={portableTextComponents} />
-            </div>
-
-            <div className="absolute bottom-4 left-4 w-8 h-8 bg-gradient-to-br from-gold/25 to-teal/25 rounded-lg rotate-12"></div>
-            <div className="absolute top-1/2 right-4 w-3 h-16 bg-gradient-to-b from-teal/30 to-transparent rounded-full"></div>
-          </div>
-        </div>
-      </div>
 
       {/* --- YENİ SERTİFİKA BÖLÜMÜ --- */}
   <CertificatesSection certificates={page?.certificates || []} labels={labels} />

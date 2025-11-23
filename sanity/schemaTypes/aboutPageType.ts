@@ -29,13 +29,6 @@ export const aboutPageType = defineType({
       description: 'Vurgulu renkli kelime (ör: Danışmanlık)',
       validation: (Rule) => Rule.required(),
     }),
-    defineField({
-      name: 'heroDescription',
-      title: 'Hero Açıklaması',
-      type: 'text',
-      rows: 3,
-      description: 'Kısa tanıtım paragrafı',
-    }),
 
     // 🖼️ Profil Görseli
     defineField({
@@ -46,23 +39,6 @@ export const aboutPageType = defineType({
       fields: [{ name: 'alt', type: 'string', title: 'Alternatif Metin' }],
       validation: (Rule) => Rule.required(),
     }),
-    // 🏢 Ofis / Danışmanlık Ortamı Görseli
-    defineField({
-      name: 'officeImage',
-      title: 'Ofis / Ortam Görseli',
-      type: 'image',
-      options: { hotspot: true },
-      fields: [{ name: 'alt', type: 'string', title: 'Alternatif Metin' }],
-      description: 'Danışmanlık ortamınızı gösteren fotoğraf (isteğe bağlı)'
-    }),
-    defineField({
-      name: 'environmentDescription',
-      title: 'Güvenli Mekan Açıklaması',
-      type: 'text',
-      rows: 3,
-      description: '"Güvenli ve Huzurlu Mekan" başlığı altında gösterilecek açıklama',
-      initialValue: 'Danışmanlık sürecimizde size özel, gizli ve güvenli bir alan sunuyorum. Rahat hissedeceğiniz bu ortamda, kendinizi özgürce ifade edebilir ve iyileşme yolculuğunuza odaklanabilirsiniz.'
-    }),
 
     // 📝 Hakkımda İçeriği
     defineField({
@@ -70,53 +46,6 @@ export const aboutPageType = defineType({
       title: 'Hakkımda İçeriği',
       type: 'blockContent',
       description: 'Detaylı hakkımda metni - paragraflar, listeler ve formatlamalar kullanabilirsiniz',
-    }),
-
-    // 📋 Bilgi Kartları (Info Cards)
-    defineField({
-      name: 'infoCards',
-      title: 'Bilgi Kartları',
-      type: 'array',
-      description: 'Hero bölümündeki 3 kart',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            { 
-              name: 'icon', 
-              type: 'string', 
-              title: 'İkon (emoji)',
-              validation: (Rule) => Rule.required(),
-            },
-            { 
-              name: 'title', 
-              type: 'string', 
-              title: 'Başlık',
-              validation: (Rule) => Rule.required(),
-            },
-            { 
-              name: 'description', 
-              type: 'string', 
-              title: 'Açıklama',
-              validation: (Rule) => Rule.required(),
-            },
-          ],
-          preview: {
-            select: {
-              title: 'title',
-              subtitle: 'description',
-              icon: 'icon',
-            },
-            prepare({ title, subtitle, icon }) {
-              return {
-                title: `${icon || ''} ${title || 'Bilgi Kartı'}`,
-                subtitle: subtitle || '',
-              }
-            },
-          },
-        },
-      ],
-      validation: (Rule) => Rule.max(3).error('En fazla 3 kart ekleyebilirsiniz'),
     }),
 
     // 🏷️ Sayfa içindeki buton/etiket metinleri
@@ -127,80 +56,7 @@ export const aboutPageType = defineType({
       fields: [
         { name: 'introButton', title: 'Giriş Butonu', type: 'string' },
         { name: 'profileButton', title: 'Profil Butonu', type: 'string' },
-        { name: 'environmentButton', title: 'Ortam Butonu', type: 'string' },
-        { name: 'detailsButton', title: 'Detaylar Butonu', type: 'string' },
         { name: 'certificatesButton', title: 'Sertifikalar Butonu', type: 'string' },
-      ],
-    }),
-
-    // 🎓 Eğitim Bilgileri
-    defineField({
-      name: 'educationSection',
-      title: 'Eğitim Bölümü Başlıkları',
-      type: 'object',
-      fields: [
-        {
-          name: 'buttonText',
-          title: 'Buton Metni',
-          type: 'string',
-          initialValue: 'EĞİTİM BİLGİLERİ',
-        },
-        {
-          name: 'title',
-          title: 'Ana Başlık',
-          type: 'string',
-          description: 'Vurgulu kelime için ** arasına alın (ör: Akademik **Alt Yapı**)',
-          initialValue: 'Akademik **Alt Yapı**',
-        },
-      ],
-    }),
-    defineField({
-      name: 'education',
-      title: 'Eğitim Bilgileri',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            { 
-              name: 'degree', 
-              type: 'string', 
-              title: 'Derece/Diploma',
-              validation: (Rule) => Rule.required(),
-            },
-            { 
-              name: 'institution', 
-              type: 'string', 
-              title: 'Kurum',
-              validation: (Rule) => Rule.required(),
-            },
-            { 
-              name: 'year', 
-              type: 'string', 
-              title: 'Yıl',
-              validation: (Rule) => Rule.required(),
-            },
-            { 
-              name: 'description', 
-              type: 'text', 
-              title: 'Açıklama (Opsiyonel)',
-              rows: 2,
-            },
-          ],
-          preview: {
-            select: {
-              title: 'degree',
-              subtitle: 'institution',
-              year: 'year',
-            },
-            prepare({ title, subtitle, year }) {
-              return {
-                title: title || 'Eğitim',
-                subtitle: `${subtitle || ''} - ${year || ''}`,
-              }
-            },
-          },
-        },
       ],
     }),
 
@@ -251,58 +107,48 @@ export const aboutPageType = defineType({
 
 
 
-    // 💭 Kişisel Yaklaşım
+    // 🎯 Uzmanlık Alanları (Sol-Sağ Tasarım)
     defineField({
-      name: 'approach',
-      title: 'Kişisel Yaklaşım',
-      type: 'object',
-      fields: [
-        defineField({
-          name: 'title',
-          title: 'Başlık',
-          type: 'string',
-          description: 'Vurgulu kelime için ** arasına alın',
-        }),
-        defineField({
-          name: 'content',
-          title: 'İçerik',
-          type: 'blockContent',
-          description: 'Yaklaşımınızı detaylı olarak anlatın',
-        }),
-      ],
-    }),
-
-    // 📊 İstatistikler
-    defineField({
-      name: 'stats',
-      title: 'Başarı İstatistikleri',
+      name: 'specializations',
+      title: 'Uzmanlık Alanları',
       type: 'array',
+      description: 'Çalıştığınız alanlar (Sol-sağ dönüşümlü gösterilecek)',
       of: [
         {
           type: 'object',
           fields: [
             { 
-              name: 'number', 
-              type: 'string', 
-              title: 'Sayı',
-              validation: (Rule) => Rule.required(),
-            },
-            { 
-              name: 'label', 
-              type: 'string', 
-              title: 'Açıklama',
-              validation: (Rule) => Rule.required(),
-            },
-            { 
               name: 'icon', 
               type: 'string', 
               title: 'İkon (emoji)',
+              description: 'ör: 🎓, ⚡️, 💔, ✨',
+              validation: (Rule) => Rule.required(),
+            },
+            { 
+              name: 'title', 
+              type: 'string', 
+              title: 'Başlık',
+              validation: (Rule) => Rule.required(),
+            },
+            { 
+              name: 'description', 
+              type: 'text', 
+              title: 'Açıklama',
+              rows: 4,
+              validation: (Rule) => Rule.required(),
             },
           ],
           preview: {
             select: {
-              title: 'label',
-              subtitle: 'number',
+              title: 'title',
+              subtitle: 'description',
+              icon: 'icon',
+            },
+            prepare({ title, subtitle, icon }) {
+              return {
+                title: `${icon || ''} ${title || 'Uzmanlık Alanı'}`,
+                subtitle: subtitle ? subtitle.substring(0, 60) + '...' : '',
+              }
             },
           },
         },

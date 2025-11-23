@@ -177,7 +177,7 @@ export default async function BlogPage({ searchParams }: { searchParams: Promise
       </div>
 
       {/* HERO BÖLÜMÜNÜN TASARIMI OLDUĞU GİBİ KORUNUYOR. */}
-      <div className="relative py-32 overflow-hidden">
+      <div className="relative py-20 overflow-hidden">
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 text-center">
           
           {/* Badge'inizin tasarımı olduğu gibi korunuyor. */}
@@ -309,7 +309,7 @@ export default async function BlogPage({ searchParams }: { searchParams: Promise
           </div>
         ) : (
           // Yazı bulunamadığında gösterilecek mesaj ve tasarım olduğu gibi korunuyor.
-          <div className="text-center py-32">
+          <div className="text-center py-20">
             <div className="relative inline-block">
               <div className="absolute -inset-8 bg-gradient-to-br from-gold/20 to-teal/20 rounded-3xl blur-2xl"></div>
               <div className="relative p-16 rounded-3xl bg-white/20 backdrop-blur-xl border border-white/30 shadow-2xl">
